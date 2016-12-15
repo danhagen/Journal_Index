@@ -1,5 +1,5 @@
 ipython IndexInput.py
-pdflatex main.tex
+pdflatex main.tex &> /dev/null
 git add . 
 git commit --quiet -m "Adding to Index!" 
 git push --quiet origin master
