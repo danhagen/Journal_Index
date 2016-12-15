@@ -344,8 +344,10 @@ while additional_entry == True:
 	cprint('-'*60,'white',attrs=['bold'])
 	topic_string = colored('Topic: ', 'red', attrs = ['bold'])
 	topic = input(topic_string).capitalize()
-	if topic == "Exit": break
-	if topic == "Options": 
+	if topic == "Exit": 
+		cprint('-'*60,'white',attrs=['bold'])
+		break
+	elif topic == "Options": 
 		options(index)
 	else:
 		volume_string = colored('Volume: ', 'red', attrs = ['bold'])
