@@ -606,6 +606,7 @@ while additional_entry == True:
 									page = input(page_string).capitalize()
 									if page == "Exit":
 										cprint('-'*60,'white',attrs=['bold'])
+										exit_search_results = True
 										additional_entry = False
 										exit_prompt = True
 										break
