@@ -366,8 +366,7 @@ def add_to_reference(index):
 				page_string = colored('Page: ', 'red', attrs = ['bold'])
 				page = input(page_string).capitalize()
 				if page == "Exit": 
-					# exit_lookup = True
-					break
+					return
 				page = int(page)
 				if topic in index.keys():
 					if str(volume) not in index[topic].index.keys():
@@ -503,24 +502,24 @@ while additional_entry == True:
 		else:
 			index[topic].add_pages_to_volume(volume,page)
 
-	valid_entry = False
-	while valid_entry == False:
+	exit_prompt = False
+	while exit_prompt == False:
 		cprint('-'*60,'white',attrs=['bold'])
 		response_string = colored("Additional Entries? ([y]/n): ",'red',attrs=['bold'])
 		response = input(response_string).capitalize()
 		if response not in ['Y','','N','Options']:
 			cprint('Invalid Response. ','blue',attrs = ['bold'])
-			valid_entry=False
+			exit_prompt=False
 		elif response in ['Y','']:
 			additional_entry=True
-			valid_entry=True
+			exit_prompt=True
 		elif response == 'Options':
 			options(index)
-			valid_entry = False
+			exit_prompt = False
 		else:
 			cprint('-'*60,'white',attrs=['bold'])
 			additional_entry=False
-			valid_entry=True
+			exit_prompt=True
 
 pickle.dump(index,open('journalindeces.pkl','wb'),pickle.HIGHEST_PROTOCOL)
 
