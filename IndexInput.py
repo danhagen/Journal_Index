@@ -599,6 +599,10 @@ while additional_entry == True:
 									additional_entry = False
 									exit_prompt = True
 									break
+								elif volume == "Cancel":
+										additional_entry = False
+										exit_prompt = False
+										break
 								volume = int(volume)
 								new_page = False
 								while new_page == False:
@@ -609,6 +613,11 @@ while additional_entry == True:
 										exit_search_results = True
 										additional_entry = False
 										exit_prompt = True
+										break
+									elif page == "Cancel":
+										exit_search_results = True
+										additional_entry = False
+										exit_prompt = False
 										break
 									page = int(page)
 									if topic in index.keys():
