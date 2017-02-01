@@ -553,6 +553,7 @@ index = pickle.load(open('journalindeces.pkl','rb'))
 
 additional_entry = True
 while additional_entry == True:
+	exit_prompt = False
 	cprint('-'*60,'white',attrs=['bold'])
 	topic_string = colored('Topic: ', 'red', attrs = ['bold'])
 	topic = input(topic_string).capitalize()	
@@ -580,6 +581,7 @@ while additional_entry == True:
 					response_3 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
 					if response_3.capitalize() == "Exit": 
 						additional_entry = False
+						exit_prompt = True
 						break
 					else:
 						try:
@@ -591,13 +593,17 @@ while additional_entry == True:
 								topic = potential_keys[int(response_3)-1]
 								volume_string = colored('Volume: ', 'red', attrs = ['bold'])
 								volume = input(volume_string).capitalize()
-								if volume == "Exit": break
+								if volume == "Exit": 
+									exit_prompt = True
+									break
 								volume = int(volume)
 								new_page = False
 								while new_page == False:
 									page_string = colored('Page: ', 'red', attrs = ['bold'])
 									page = input(page_string).capitalize()
-									if page == "Exit": break
+									if page == "Exit":
+										exit_prompt = True
+										break
 									page = int(page)
 									if topic in index.keys():
 										if str(volume) not in index[topic].index.keys():
@@ -623,13 +629,17 @@ while additional_entry == True:
 		else:
 			volume_string = colored('Volume: ', 'red', attrs = ['bold'])
 			volume = input(volume_string).capitalize()
-			if volume == "Exit": break
+			if volume == "Exit":
+				exit_prompt = True
+				break
 			volume = int(volume)
 			new_page = False
 			while new_page == False:
 				page_string = colored('Page: ', 'red', attrs = ['bold'])
 				page = input(page_string).capitalize()
-				if page == "Exit": break
+				if page == "Exit":
+					exit_prompt = True 
+					break
 				page = int(page)
 				if topic in index.keys():
 					if str(volume) not in index[topic].index.keys():
@@ -648,7 +658,6 @@ while additional_entry == True:
 			else:
 				index[topic].add_pages_to_volume(volume,page)
 
-	exit_prompt = False
 	while exit_prompt == False:
 		cprint('-'*60,'white',attrs=['bold'])
 		response_string = colored("Additional Entries? ([y]/n): ",'red',attrs=['bold'])
