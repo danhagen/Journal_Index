@@ -547,6 +547,14 @@ def options(index):
 # 			cprint('-'*60,'white',attrs=['bold'])
 # 			additional_entry=False
 # 			exit_prompt=True
+def index_from_letter(letters,index):
+	for letter in letters:
+		latexfile.write("\\subsection*{" + letter.capitalize() +"} \n" + \
+								"\\begin{align*} \n")\
+		for key in sorted(index.keys()):
+			if key[0] == letter: latexfile.write(index[key].print_topic())
+		latexfile.write("\\end{align*} \n")\
+			
 
 
 index = pickle.load(open('journalindeces.pkl','rb'))
@@ -702,6 +710,9 @@ while additional_entry == True:
 			additional_entry=False
 			exit_prompt=True
 
+alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L',\
+						'M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+
 pickle.dump(index,open('journalindeces.pkl','wb'),pickle.HIGHEST_PROTOCOL)
 
 latexfile = open("main.tex","w")
@@ -717,9 +728,11 @@ latexfile.write("\\documentclass[a4paper]{article} \n" + \
 					"\\allowdisplaybreaks \n" + \
 					"\\begin{align*} \n")
 for key in sorted(index.keys()):
-	latexfile.write(index[key].print_topic())
-latexfile.write("\\end{align*} \n" +\
-				"\\end{document}")
+	if key[0] not in alphabet:
+		latexfile.write(index[key].print_topic())
+latexfile.write("\\end{align*} \n")
+index_from_letter(alphabet,index)
+latexfile.write("\\end{document}")
 latexfile.close()
 
 
