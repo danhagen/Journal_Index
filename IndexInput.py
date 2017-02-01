@@ -340,7 +340,6 @@ def add_to_reference(index):
 				cprint('-'*60,'white',attrs=['bold'])
 				response_3 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
 				if response_3.capitalize() == "Exit": 
-					# cprint('-'*60,'white',attrs=['bold'])
 					return
 				else:
 					try:
@@ -360,8 +359,7 @@ def add_to_reference(index):
 			volume_string = colored('Volume: ', 'red', attrs = ['bold'])
 			volume = input(volume_string).capitalize()
 			if volume == "Exit": 
-				exit_lookup = True
-				break
+				return
 			volume = int(volume)
 			new_page = False
 			while new_page == False:
