@@ -301,6 +301,108 @@ def delete_page(index):
 			else:
 				cprint('Invalid Response.', 'blue', attrs =['bold'])
 				valid_response_5 = False
+
+def add_to_reference(index):
+	another_reference_to_add = True
+	while another_reference_to_add == True:
+		cprint('-'*60,'white',attrs=['bold'])
+		cprint('Add To Existing Reference','blue',attrs = ['bold','underline'])
+		valid_response_1 = False
+		while valid_response_1 == False:
+			lookup_string = input(colored('Index Lookup: ','red',attrs = ['bold'])).capitalize()
+			potential_keys = []
+			for key in index.keys():
+				if key[:len(lookup_string)] == lookup_string:
+					potential_keys.append(key)
+			if len(potential_keys)==0: 
+				cprint('-'*60,'white',attrs=['bold'])
+				valid_response_2 = False
+				while valid_response_2 == False:
+					response_2 = input(colored("No references matched your search.", 'red', attrs = ['bold']) \
+									+ colored(" Search again? ([y],n)", attrs = ['bold'])).capitalize()
+					if response_2 in ['Y', '']:
+						valid_response_1 = False
+						valid_response_2 = True
+					elif response_2 == 'N':
+						valid_response_1 = True
+						valid_response_2 = True
+					else:
+						cprint('Invalid Response.', 'blue', attrs =['bold'])
+						valid_response_2 = False
+			else:
+				cprint('-'*60,'white',attrs=['bold'])
+				cprint('Search Results','blue',attrs = ['bold','underline'])
+				[cprint(str(i+1) + " - " + potential_keys[i], 'white') for i in range(len(potential_keys))]
+				valid_response_3 = False
+				while valid_response_3 == False:
+					cprint('-'*60,'white',attrs=['bold'])
+					response_3 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
+					if response_3.capitalize() == "Exit": 
+						break
+					else:
+						try:
+							if int(response_3)-1 not in range(len(potential_keys)):
+								cprint('Number option not listed.', 'blue', attrs = ['bold'])
+								valid_response_3 = False
+							else:
+								topic = potential_keys[int(response_3)-1]
+								valid_response_3 = True
+						except ValueError:
+							cprint('Invalid Response.', 'blue', attrs =['bold'])
+							valid_response_2 = False
+
+				cprint('-'*60,'white',attrs=['bold'])
+				cprint("Add to " + topic + "'",'blue',attrs = ['bold','underline'])
+				volume_string = colored('Volume: ', 'red', attrs = ['bold'])
+				volume = input(volume_string).capitalize()
+				if volume == "Exit": break
+				volume = int(volume)
+				new_page = False
+				while new_page == False:
+					page_string = colored('Page: ', 'red', attrs = ['bold'])
+					page = input(page_string).capitalize()
+					if page == "Exit": break
+					page = int(page)
+					if topic in index.keys():
+						if str(volume) not in index[topic].index.keys():
+							new_page = True
+						elif page in index[topic].index[str(volume)]:
+							cprint("Page " + str(page) + " in vol. " + str(volume) \
+									+ " is already indexed for topic '" + topic + "'.", 'blue', attrs = ['bold'])
+							new_page = False
+						else:
+							new_page = True
+					else:
+						new_page = True
+
+				if topic not in index.keys():
+					index[topic] = index_topic(topic,volume,page)
+				else:
+					index[topic].add_pages_to_volume(volume,page)
+
+
+		# 	if topic_string in index.keys():
+		# 		print_reference(topic_string,index)
+		# 		valid_response_1 = True
+		# 	elif topic_string == 'Exit':
+		# 		break
+		# 	else:
+		# 		cprint('Topic ' + topic_string + ' not in Index.','blue',attrs=['bold'])
+		# 		valid_response_1 = False
+		# valid_response_3 = False
+		# while valid_response_3 == False:
+		# 	cprint('-'*60,'white',attrs=['bold'])
+		# 	next_action = input(colored("Print Another Reference? ([y],n): ",'red',attrs=['bold'])).capitalize()
+		# 	if next_action in ['Y', '']:
+		# 		another_reference_to_add = True
+		# 		valid_response_3 = True
+		# 	elif next_action == 'N':
+		# 		another_reference_to_add = False
+		# 		valid_response_3 = True
+		# 	else:
+		# 		cprint('Invalid Response.', 'blue', attrs =['bold'])
+		# 		valid_response_3 = False
+
 def options(index):
 	exit_options = False
 	while exit_options == False:
@@ -333,6 +435,9 @@ def options(index):
 		elif action == '5':
 			delete_page(index)
 			exit_options = True
+		# elif action == '6':
+		# 	add_to_reference(index)
+		# 	exit_options = True
 		else:
 			cprint('Invalid Response.','blue',attrs=['bold'])
 			exit_options = False
