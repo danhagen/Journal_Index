@@ -435,9 +435,9 @@ def options(index):
 		elif action == '5':
 			delete_page(index)
 			exit_options = True
-		# elif action == '6':
-		# 	add_to_reference(index)
-		# 	exit_options = True
+		elif action == '6':
+			add_to_reference(index)
+			exit_options = True
 		else:
 			cprint('Invalid Response.','blue',attrs=['bold'])
 			exit_options = False
