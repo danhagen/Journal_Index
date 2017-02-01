@@ -538,7 +538,7 @@ while additional_entry == True:
 	cprint('-'*60,'white',attrs=['bold'])
 	topic_string = colored('Topic: ', 'red', attrs = ['bold'])
 	topic = input(topic_string).capitalize()
-	if topic[0] == ">"
+	if topic[0] == ">":
 		topic = topic[1:]
 		potential_keys = []
 		for key in index.keys():
