@@ -580,6 +580,7 @@ while additional_entry == True:
 					cprint('-'*60,'white',attrs=['bold'])
 					response_3 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
 					if response_3.capitalize() == "Exit": 
+						cprint('-'*60,'white',attrs=['bold'])
 						additional_entry = False
 						exit_prompt = True
 						break
