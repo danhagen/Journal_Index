@@ -188,6 +188,9 @@ def delete_topic(index):
 									else:
 										cprint('Invalid Response.', 'blue', attrs =['bold'])
 										valid_response_2 = False
+						except ValueError:
+							cprint('Invalid Response.', 'blue', attrs =['bold'])
+							exit_search_results = False
 		invalid_response = True
 		while invalid_response == True:
 			cprint('-'*60,'white',attrs=['bold'])
@@ -615,7 +618,7 @@ while additional_entry == True:
 									exit_search_results = True
 						except ValueError:
 							cprint('Invalid Response.', 'blue', attrs =['bold'])
-							exit_search_again = False
+							exit_search_results = False
 		else:
 			volume_string = colored('Volume: ', 'red', attrs = ['bold'])
 			volume = input(volume_string).capitalize()
