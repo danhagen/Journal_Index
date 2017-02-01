@@ -649,6 +649,10 @@ while additional_entry == True:
 				additional_entry = False
 				exit_prompt = True
 				break
+			elif volume == "Cancel":
+				additional_entry = False
+				exit_prompt = False
+				break
 			volume = int(volume)
 			new_page = False
 			while new_page == False:
@@ -658,6 +662,10 @@ while additional_entry == True:
 					cprint('-'*60,'white',attrs=['bold'])
 					additional_entry = False
 					exit_prompt = True 
+					break
+				elif page == "Cancel":
+					additional_entry = False
+					exit_prompt = False
 					break
 				page = int(page)
 				if topic in index.keys():
