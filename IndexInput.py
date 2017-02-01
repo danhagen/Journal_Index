@@ -368,7 +368,7 @@ def add_to_reference(index):
 					page_string = colored('Page: ', 'red', attrs = ['bold'])
 					page = input(page_string).capitalize()
 					if page == "Exit": 
-						exit_lookup = True
+						# exit_lookup = True
 						break
 					page = int(page)
 					if topic in index.keys():
@@ -387,18 +387,19 @@ def add_to_reference(index):
 					index[topic] = index_topic(topic,volume,page)
 				else:
 					index[topic].add_pages_to_volume(volume,page)
-			invalid_response = True
-			while invalid_response == True:
-				response_4 = input(colored("Add to Additional Reference? ([y],n): ", 'red', attrs =['bold'])).capitalize()
-				if response_4 not in ['Y', '', 'N']:
-					cprint('Invalid Response.', 'blue', attrs =['bold']) 
-					invalid_response = True
-				elif response_4 == 'N':
-					exit_add_to_reference = True
-					invalid_response = False
-				else:
-					exit_add_to_reference = False
-					invalid_response = False
+				exit_lookup = True
+		invalid_response = True
+		while invalid_response == True:
+			response_4 = input(colored("Add to Additional Reference? ([y],n): ", 'red', attrs =['bold'])).capitalize()
+			if response_4 not in ['Y', '', 'N']:
+				cprint('Invalid Response.', 'blue', attrs =['bold']) 
+				invalid_response = True
+			elif response_4 == 'N':
+				exit_add_to_reference = True
+				invalid_response = False
+			else:
+				exit_add_to_reference = False
+				invalid_response = False
 
 
 
