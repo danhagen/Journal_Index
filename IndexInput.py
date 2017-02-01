@@ -426,109 +426,109 @@ def options(index):
 			cprint('Invalid Response.','blue',attrs=['bold'])
 			exit_options = False
 
-def additional_entries(index):
-	exit_lookup = False
-	while exit_lookup == False:
-		lookup_string = input(colored("Topic (>> - Search for Topic): ",'red',attrs = ['bold'])).capitalize()
-		if lookup_string[0] == "\\"
-		potential_keys = []
-		for key in index.keys():
-			if key[:len(lookup_string)] == lookup_string:
-				potential_keys.append(key)
-		if len(potential_keys)==0: 
-			exit_search_again = False
-			while exit_search_again == False:
-				cprint('-'*60,'white',attrs=['bold'])
-				response_2 = input(colored("No references matched your search.", 'blue', attrs = ['bold']) \
-								+ colored(" Search again? ([y],n): ", 'red', attrs = ['bold'])).capitalize()
-				if response_2 in ['Y', '']:
-					exit_lookup = False
-					exit_search_again = True
-				elif response_2 == 'N':
-					cprint('-'*60,'white',attrs=['bold'])
-					exit_lookup = True
-					exit_search_again = True
-				else:
-					cprint('-'*60,'white',attrs=['bold'])
-					cprint('Invalid Response.', 'blue', attrs =['bold'])
-					exit_search_again = False
-		else:
-			cprint('-'*60,'white',attrs=['bold'])
-			cprint('Search Results','blue',attrs = ['bold','underline'])
-			[cprint(str(i+1) + " - " + potential_keys[i], 'white') for i in range(len(potential_keys))]
-			exit_search_results = False
-			while exit_search_results == False:
-				cprint('-'*60,'white',attrs=['bold'])
-				response_3 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
-				if response_3.capitalize() == "Exit": 
-					return
-				else:
-					try:
-						if int(response_3)-1 not in range(len(potential_keys)):
-							cprint('-'*60,'white',attrs=['bold'])
-							cprint('Number option not listed.', 'blue', attrs = ['bold'])
-							exit_search_results = False
-						else:
-							topic = potential_keys[int(response_3)-1]
-							exit_search_results = True
-					except ValueError:
-						cprint('Invalid Response.', 'blue', attrs =['bold'])
-						exit_search_again = False
+# def additional_entries(index):
+# 	exit_lookup = False
+# 	while exit_lookup == False:
+# 		lookup_string = input(colored("Topic (>> - Search for Topic): ",'red',attrs = ['bold'])).capitalize()
+# 		if lookup_string[0] == "\\"
+# 		potential_keys = []
+# 		for key in index.keys():
+# 			if key[:len(lookup_string)] == lookup_string:
+# 				potential_keys.append(key)
+# 		if len(potential_keys)==0: 
+# 			exit_search_again = False
+# 			while exit_search_again == False:
+# 				cprint('-'*60,'white',attrs=['bold'])
+# 				response_2 = input(colored("No references matched your search.", 'blue', attrs = ['bold']) \
+# 								+ colored(" Search again? ([y],n): ", 'red', attrs = ['bold'])).capitalize()
+# 				if response_2 in ['Y', '']:
+# 					exit_lookup = False
+# 					exit_search_again = True
+# 				elif response_2 == 'N':
+# 					cprint('-'*60,'white',attrs=['bold'])
+# 					exit_lookup = True
+# 					exit_search_again = True
+# 				else:
+# 					cprint('-'*60,'white',attrs=['bold'])
+# 					cprint('Invalid Response.', 'blue', attrs =['bold'])
+# 					exit_search_again = False
+# 		else:
+# 			cprint('-'*60,'white',attrs=['bold'])
+# 			cprint('Search Results','blue',attrs = ['bold','underline'])
+# 			[cprint(str(i+1) + " - " + potential_keys[i], 'white') for i in range(len(potential_keys))]
+# 			exit_search_results = False
+# 			while exit_search_results == False:
+# 				cprint('-'*60,'white',attrs=['bold'])
+# 				response_3 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
+# 				if response_3.capitalize() == "Exit": 
+# 					return
+# 				else:
+# 					try:
+# 						if int(response_3)-1 not in range(len(potential_keys)):
+# 							cprint('-'*60,'white',attrs=['bold'])
+# 							cprint('Number option not listed.', 'blue', attrs = ['bold'])
+# 							exit_search_results = False
+# 						else:
+# 							topic = potential_keys[int(response_3)-1]
+# 							exit_search_results = True
+# 					except ValueError:
+# 						cprint('Invalid Response.', 'blue', attrs =['bold'])
+# 						exit_search_again = False
 
-	cprint('-'*60,'white',attrs=['bold'])
-	topic_string = colored('Topic: ', 'red', attrs = ['bold'])
-	topic = input(topic_string).capitalize()
-	if topic == "Exit": 
-		cprint('-'*60,'white',attrs=['bold'])
-		break
-	elif topic == "Options": 
-		options(index)
-	else:
-		volume_string = colored('Volume: ', 'red', attrs = ['bold'])
-		volume = input(volume_string).capitalize()
-		if volume == "Exit": break
-		volume = int(volume)
-		new_page = False
-		while new_page == False:
-			page_string = colored('Page: ', 'red', attrs = ['bold'])
-			page = input(page_string).capitalize()
-			if page == "Exit": break
-			page = int(page)
-			if topic in index.keys():
-				if str(volume) not in index[topic].index.keys():
-					new_page = True
-				elif page in index[topic].index[str(volume)]:
-					cprint("Page " + str(page) + " in vol. " + str(volume) \
-							+ " is already indexed for topic '" + topic + "'.", 'blue', attrs = ['bold'])
-					new_page = False
-				else:
-					new_page = True
-			else:
-				new_page = True
+# 	cprint('-'*60,'white',attrs=['bold'])
+# 	topic_string = colored('Topic: ', 'red', attrs = ['bold'])
+# 	topic = input(topic_string).capitalize()
+# 	if topic == "Exit": 
+# 		cprint('-'*60,'white',attrs=['bold'])
+# 		break
+# 	elif topic == "Options": 
+# 		options(index)
+# 	else:
+# 		volume_string = colored('Volume: ', 'red', attrs = ['bold'])
+# 		volume = input(volume_string).capitalize()
+# 		if volume == "Exit": break
+# 		volume = int(volume)
+# 		new_page = False
+# 		while new_page == False:
+# 			page_string = colored('Page: ', 'red', attrs = ['bold'])
+# 			page = input(page_string).capitalize()
+# 			if page == "Exit": break
+# 			page = int(page)
+# 			if topic in index.keys():
+# 				if str(volume) not in index[topic].index.keys():
+# 					new_page = True
+# 				elif page in index[topic].index[str(volume)]:
+# 					cprint("Page " + str(page) + " in vol. " + str(volume) \
+# 							+ " is already indexed for topic '" + topic + "'.", 'blue', attrs = ['bold'])
+# 					new_page = False
+# 				else:
+# 					new_page = True
+# 			else:
+# 				new_page = True
 
-		if topic not in index.keys():
-			index[topic] = index_topic(topic,volume,page)
-		else:
-			index[topic].add_pages_to_volume(volume,page)
+# 		if topic not in index.keys():
+# 			index[topic] = index_topic(topic,volume,page)
+# 		else:
+# 			index[topic].add_pages_to_volume(volume,page)
 
-	exit_prompt = False
-	while exit_prompt == False:
-		cprint('-'*60,'white',attrs=['bold'])
-		response_string = colored("Additional Entries? ([y]/n): ",'red',attrs=['bold'])
-		response = input(response_string).capitalize()
-		if response not in ['Y','','N','Options']:
-			cprint('Invalid Response. ','blue',attrs = ['bold'])
-			exit_prompt=False
-		elif response in ['Y','']:
-			additional_entry=True
-			exit_prompt=True
-		elif response == 'Options':
-			options(index)
-			exit_prompt = False
-		else:
-			cprint('-'*60,'white',attrs=['bold'])
-			additional_entry=False
-			exit_prompt=True
+# 	exit_prompt = False
+# 	while exit_prompt == False:
+# 		cprint('-'*60,'white',attrs=['bold'])
+# 		response_string = colored("Additional Entries? ([y]/n): ",'red',attrs=['bold'])
+# 		response = input(response_string).capitalize()
+# 		if response not in ['Y','','N','Options']:
+# 			cprint('Invalid Response. ','blue',attrs = ['bold'])
+# 			exit_prompt=False
+# 		elif response in ['Y','']:
+# 			additional_entry=True
+# 			exit_prompt=True
+# 		elif response == 'Options':
+# 			options(index)
+# 			exit_prompt = False
+# 		else:
+# 			cprint('-'*60,'white',attrs=['bold'])
+# 			additional_entry=False
+# 			exit_prompt=True
 
 
 index = pickle.load(open('journalindeces.pkl','rb'))
