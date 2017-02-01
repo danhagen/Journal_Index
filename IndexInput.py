@@ -600,7 +600,6 @@ while additional_entry == True:
 									exit_prompt = True
 									break
 								elif volume == "Cancel":
-										additional_entry = False
 										exit_prompt = False
 										break
 								volume = int(volume)
@@ -616,7 +615,6 @@ while additional_entry == True:
 										break
 									elif page == "Cancel":
 										exit_search_results = True
-										additional_entry = False
 										exit_prompt = False
 										break
 									page = int(page)
@@ -650,7 +648,6 @@ while additional_entry == True:
 				exit_prompt = True
 				break
 			elif volume == "Cancel":
-				additional_entry = False
 				exit_prompt = False
 				break
 			volume = int(volume)
@@ -664,7 +661,6 @@ while additional_entry == True:
 					exit_prompt = True 
 					break
 				elif page == "Cancel":
-					additional_entry = False
 					exit_prompt = False
 					break
 				page = int(page)
