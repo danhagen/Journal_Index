@@ -390,15 +390,15 @@ def add_to_reference(index):
 			invalid_response = True
 			while invalid_response == True:
 				response_4 = input(colored("Add to Additional Reference? ([y],n): ", 'red', attrs =['bold']))
-					if response_4 not in ['Y', '', 'N']:
-						cprint('Invalid Response.', 'blue', attrs =['bold']) 
-						invalid_response = True
-					elif response_4 == 'N':
-						exit_add_to_reference = True
-						invalid_response = False
-					else:
-						exit_add_to_reference = False
-						invalid_response = False
+				if response_4 not in ['Y', '', 'N']:
+					cprint('Invalid Response.', 'blue', attrs =['bold']) 
+					invalid_response = True
+				elif response_4 == 'N':
+					exit_add_to_reference = True
+					invalid_response = False
+				else:
+					exit_add_to_reference = False
+					invalid_response = False
 						
 
 
