@@ -188,6 +188,7 @@ def delete_topic(index):
 									else:
 										cprint('Invalid Response.', 'blue', attrs =['bold'])
 										valid_response_2 = False
+								exit_search_results = True
 						except ValueError:
 							cprint('Invalid Response.', 'blue', attrs =['bold'])
 							exit_search_results = False
