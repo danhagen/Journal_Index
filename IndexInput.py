@@ -648,36 +648,37 @@ while additional_entry == True:
 				exit_prompt = True
 			elif volume == "Cancel":
 				exit_prompt = False
-			volume = int(volume)
-			new_page = False
-			while new_page == False:
-				page_string = colored('Page: ', 'red', attrs = ['bold'])
-				page = input(page_string).capitalize()
-				if page == "Exit":
-					cprint('-'*60,'white',attrs=['bold'])
-					additional_entry = False
-					exit_prompt = True 
-					break
-				elif page == "Cancel":
-					exit_prompt = False
-					break
-				page = int(page)
-				if topic in index.keys():
-					if str(volume) not in index[topic].index.keys():
-						new_page = True
-					elif page in index[topic].index[str(volume)]:
-						cprint("Page " + str(page) + " in vol. " + str(volume) \
-								+ " is already indexed for topic '" + topic + "'.", 'blue', attrs = ['bold'])
-						new_page = False
+			else:
+				volume = int(volume)
+				new_page = False
+				while new_page == False:
+					page_string = colored('Page: ', 'red', attrs = ['bold'])
+					page = input(page_string).capitalize()
+					if page == "Exit":
+						cprint('-'*60,'white',attrs=['bold'])
+						additional_entry = False
+						exit_prompt = True 
+						break
+					elif page == "Cancel":
+						exit_prompt = False
+						break
+					page = int(page)
+					if topic in index.keys():
+						if str(volume) not in index[topic].index.keys():
+							new_page = True
+						elif page in index[topic].index[str(volume)]:
+							cprint("Page " + str(page) + " in vol. " + str(volume) \
+									+ " is already indexed for topic '" + topic + "'.", 'blue', attrs = ['bold'])
+							new_page = False
+						else:
+							new_page = True
 					else:
 						new_page = True
-				else:
-					new_page = True
 
-			if topic not in index.keys():
-				index[topic] = index_topic(topic,volume,page)
-			else:
-				index[topic].add_pages_to_volume(volume,page)
+				if topic not in index.keys():
+					index[topic] = index_topic(topic,volume,page)
+				else:
+					index[topic].add_pages_to_volume(volume,page)
 
 	while exit_prompt == False:
 		cprint('-'*60,'white',attrs=['bold'])
