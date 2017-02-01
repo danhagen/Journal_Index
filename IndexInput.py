@@ -435,7 +435,7 @@ def options(index):
 			   '\n- Delete Reference             (3)'+\
 			   '\n- Delete Volume Reference      (4)'+\
 			   '\n- Delete Page Reference        (5)'+\
-			   '\n- Add To Reference        	 (6)'+\
+			   '\n- Add To Reference           (6)'+\
 			   '\n- [Exit]\n','blue',\
 			   attrs=['bold'])
 		cprint('-'*60,'white',attrs=['bold'])
