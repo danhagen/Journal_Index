@@ -592,12 +592,13 @@ while additional_entry == True:
 											new_page = True
 									else:
 										new_page = True
-											exit_search_results = True
+									
 									if topic not in index.keys():
 										index[topic] = index_topic(topic,volume,page)
 									else:
 										index[topic].add_pages_to_volume(volume,page)
-
+										
+									exit_search_results = True
 						except ValueError:
 							cprint('Invalid Response.', 'blue', attrs =['bold'])
 							exit_search_again = False
