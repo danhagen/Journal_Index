@@ -147,42 +147,60 @@ def delete_topic(index):
 	while delete_another_topic == True:
 		cprint('-'*60,'white',attrs=['bold'])
 		cprint('Delete Reference','blue',attrs = ['bold','underline'])
-		valid_response_1 = False
-		while valid_response_1 == False:
-			topic_to_be_deleted = input(colored('Topic: ','red',attrs = ['bold'])).capitalize()
-			if topic_to_be_deleted in index.keys():
-				valid_response_2 = False
-				while valid_response_2 == False:
-					safety_check = input(colored("Are you sure you want to delete '" \
-										+ topic_to_be_deleted + "' in Index? ([y],n): ",\
-										'red',attrs = ['bold'])).capitalize()
-					if safety_check in ['Y', '']:
-						del index[topic_to_be_deleted]
-						valid_response_2 = True
-					elif safety_check == 'N':
-						valid_response_2 = True
-					else:
-						cprint('Invalid Response.', 'blue', attrs =['bold'])
-						valid_response_2 = False
-				valid_response_1 = True
-			elif topic_to_be_deleted == 'Exit':
-				break
+		topic_to_be_deleted = input(colored('Topic: ','red',attrs = ['bold'])).capitalize()
+		if topic_to_be_deleted == "Exit":
+			return
+		else:
+			potential_keys = []
+			for key in index.keys():
+				if key[:len(topic_to_be_deleted)] == topic_to_be_deleted:
+					potential_keys.append(key)
+			if len(potential_keys)==0: 
+				cprint("No references matched your search.", 'blue', attrs = ['bold'])
 			else:
-				cprint('Topic ' + topic_to_be_deleted + ' not in Index.','blue',attrs=['bold'])
-				valid_response_1 = False
-		valid_response_3 = False
-		while valid_response_3 == False:
+				cprint('-'*60,'white',attrs=['bold'])
+				cprint('Search Results','blue',attrs = ['bold','underline'])
+				[cprint(str(i+1) + " - " + potential_keys[i], 'white') for i in range(len(potential_keys))]
+				exit_search_results = False
+				while exit_search_results == False:
+					cprint('-'*60,'white',attrs=['bold'])
+					response_3 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
+					if response_3.capitalize() == "Exit": 
+						return
+					else:
+						try:
+							if int(response_3)-1 not in range(len(potential_keys)):
+								cprint('-'*60,'white',attrs=['bold'])
+								cprint('Number option not listed.', 'blue', attrs = ['bold'])
+								exit_search_results = False
+							else:
+								topic_to_be_deleted = potential_keys[int(response_3)-1]
+								valid_response_2 = False
+								while valid_response_2 == False:
+									safety_check = input(colored("Are you sure you want to delete '" \
+														+ topic_to_be_deleted + "' in Index? ([y],n): ",\
+														'red',attrs = ['bold'])).capitalize()
+									if safety_check in ['Y', '']:
+										del index[topic_to_be_deleted]
+										valid_response_2 = True
+									elif safety_check == 'N':
+										valid_response_2 = True
+									else:
+										cprint('Invalid Response.', 'blue', attrs =['bold'])
+										valid_response_2 = False
+		invalid_response = True
+		while invalid_response == True:
 			cprint('-'*60,'white',attrs=['bold'])
 			next_action = input(colored("Delete Another Reference? ([y],n): ",'red',attrs=['bold'])).capitalize()
 			if next_action in ['Y', '']:
 				delete_another_topic = True
-				valid_response_3 = True
+				invalid_response = False
 			elif next_action == 'N':
 				delete_another_topic = False
-				valid_response_3 = True
+				invalid_response = False
 			else:
 				cprint('Invalid Response.', 'blue', attrs =['bold'])
-				valid_response_3 = False
+				invalid_response = True
 def delete_volume(index):
 	remove_another_volume_reference = True
 	while remove_another_volume_reference == True:
@@ -302,89 +320,89 @@ def delete_page(index):
 				cprint('Invalid Response.', 'blue', attrs =['bold'])
 				valid_response_5 = False
 
-def add_to_reference(index):
-	# exit_add_to_reference = False
-	# while exit_add_to_reference == False:
-	cprint('-'*60,'white',attrs=['bold'])
-	cprint('Add To Existing Reference','blue',attrs = ['bold','underline'])
-	exit_lookup = False
-	while exit_lookup == False:
-		lookup_string = input(colored('Index Lookup: ','red',attrs = ['bold'])).capitalize()
-		potential_keys = []
-		for key in index.keys():
-			if key[:len(lookup_string)] == lookup_string:
-				potential_keys.append(key)
-		if len(potential_keys)==0: 
-			exit_search_again = False
-			while exit_search_again == False:
-				cprint('-'*60,'white',attrs=['bold'])
-				response_2 = input(colored("No references matched your search.", 'blue', attrs = ['bold']) \
-								+ colored(" Search again? ([y],n): ", 'red', attrs = ['bold'])).capitalize()
-				if response_2 in ['Y', '']:
-					exit_lookup = False
-					exit_search_again = True
-				elif response_2 == 'N':
-					cprint('-'*60,'white',attrs=['bold'])
-					exit_lookup = True
-					exit_search_again = True
-				else:
-					cprint('-'*60,'white',attrs=['bold'])
-					cprint('Invalid Response.', 'blue', attrs =['bold'])
-					exit_search_again = False
-		else:
-			cprint('-'*60,'white',attrs=['bold'])
-			cprint('Search Results','blue',attrs = ['bold','underline'])
-			[cprint(str(i+1) + " - " + potential_keys[i], 'white') for i in range(len(potential_keys))]
-			exit_search_results = False
-			while exit_search_results == False:
-				cprint('-'*60,'white',attrs=['bold'])
-				response_3 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
-				if response_3.capitalize() == "Exit": 
-					return
-				else:
-					try:
-						if int(response_3)-1 not in range(len(potential_keys)):
-							cprint('-'*60,'white',attrs=['bold'])
-							cprint('Number option not listed.', 'blue', attrs = ['bold'])
-							exit_search_results = False
-						else:
-							topic = potential_keys[int(response_3)-1]
-							exit_search_results = True
-					except ValueError:
-						cprint('Invalid Response.', 'blue', attrs =['bold'])
-						exit_search_again = False
+# def add_to_reference(index):
+# 	# exit_add_to_reference = False
+# 	# while exit_add_to_reference == False:
+# 	cprint('-'*60,'white',attrs=['bold'])
+# 	cprint('Add To Existing Reference','blue',attrs = ['bold','underline'])
+# 	exit_lookup = False
+# 	while exit_lookup == False:
+# 		lookup_string = input(colored('Index Lookup: ','red',attrs = ['bold'])).capitalize()
+# 		potential_keys = []
+# 		for key in index.keys():
+# 			if key[:len(lookup_string)] == lookup_string:
+# 				potential_keys.append(key)
+# 		if len(potential_keys)==0: 
+# 			exit_search_again = False
+# 			while exit_search_again == False:
+# 				cprint('-'*60,'white',attrs=['bold'])
+# 				response_2 = input(colored("No references matched your search.", 'blue', attrs = ['bold']) \
+# 								+ colored(" Search again? ([y],n): ", 'red', attrs = ['bold'])).capitalize()
+# 				if response_2 in ['Y', '']:
+# 					exit_lookup = False
+# 					exit_search_again = True
+# 				elif response_2 == 'N':
+# 					cprint('-'*60,'white',attrs=['bold'])
+# 					exit_lookup = True
+# 					exit_search_again = True
+# 				else:
+# 					cprint('-'*60,'white',attrs=['bold'])
+# 					cprint('Invalid Response.', 'blue', attrs =['bold'])
+# 					exit_search_again = False
+# 		else:
+# 			cprint('-'*60,'white',attrs=['bold'])
+# 			cprint('Search Results','blue',attrs = ['bold','underline'])
+# 			[cprint(str(i+1) + " - " + potential_keys[i], 'white') for i in range(len(potential_keys))]
+# 			exit_search_results = False
+# 			while exit_search_results == False:
+# 				cprint('-'*60,'white',attrs=['bold'])
+# 				response_3 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
+# 				if response_3.capitalize() == "Exit": 
+# 					return
+# 				else:
+# 					try:
+# 						if int(response_3)-1 not in range(len(potential_keys)):
+# 							cprint('-'*60,'white',attrs=['bold'])
+# 							cprint('Number option not listed.', 'blue', attrs = ['bold'])
+# 							exit_search_results = False
+# 						else:
+# 							topic = potential_keys[int(response_3)-1]
+# 							exit_search_results = True
+# 					except ValueError:
+# 						cprint('Invalid Response.', 'blue', attrs =['bold'])
+# 						exit_search_again = False
 
-			cprint('-'*60,'white',attrs=['bold'])
-			cprint("Add to '" + topic + "'",'blue',attrs = ['bold','underline'])
-			volume_string = colored('Volume: ', 'red', attrs = ['bold'])
-			volume = input(volume_string).capitalize()
-			if volume == "Exit": 
-				return
-			volume = int(volume)
-			new_page = False
-			while new_page == False:
-				page_string = colored('Page: ', 'red', attrs = ['bold'])
-				page = input(page_string).capitalize()
-				if page == "Exit": 
-					return
-				page = int(page)
-				if topic in index.keys():
-					if str(volume) not in index[topic].index.keys():
-						new_page = True
-					elif page in index[topic].index[str(volume)]:
-						cprint("Page " + str(page) + " in vol. " + str(volume) \
-								+ " is already indexed for topic '" + topic + "'.", 'blue', attrs = ['bold'])
-						new_page = False
-					else:
-						new_page = True
-				else:
-					new_page = True
+# 			cprint('-'*60,'white',attrs=['bold'])
+# 			cprint("Add to '" + topic + "'",'blue',attrs = ['bold','underline'])
+# 			volume_string = colored('Volume: ', 'red', attrs = ['bold'])
+# 			volume = input(volume_string).capitalize()
+# 			if volume == "Exit": 
+# 				return
+# 			volume = int(volume)
+# 			new_page = False
+# 			while new_page == False:
+# 				page_string = colored('Page: ', 'red', attrs = ['bold'])
+# 				page = input(page_string).capitalize()
+# 				if page == "Exit": 
+# 					return
+# 				page = int(page)
+# 				if topic in index.keys():
+# 					if str(volume) not in index[topic].index.keys():
+# 						new_page = True
+# 					elif page in index[topic].index[str(volume)]:
+# 						cprint("Page " + str(page) + " in vol. " + str(volume) \
+# 								+ " is already indexed for topic '" + topic + "'.", 'blue', attrs = ['bold'])
+# 						new_page = False
+# 					else:
+# 						new_page = True
+# 				else:
+# 					new_page = True
 
-			if topic not in index.keys():
-				index[topic] = index_topic(topic,volume,page)
-			else:
-				index[topic].add_pages_to_volume(volume,page)
-			exit_lookup = True
+# 			if topic not in index.keys():
+# 				index[topic] = index_topic(topic,volume,page)
+# 			else:
+# 				index[topic].add_pages_to_volume(volume,page)
+# 			exit_lookup = True
 
 def options(index):
 	exit_options = False
@@ -396,7 +414,6 @@ def options(index):
 			   '\n- Delete Reference             (3)'+\
 			   '\n- Delete Volume Reference      (4)'+\
 			   '\n- Delete Page Reference        (5)'+\
-			   '\n- Add To Reference             (6)'+\
 			   '\n- [Exit]\n','blue',\
 			   attrs=['bold'])
 		cprint('-'*60,'white',attrs=['bold'])
@@ -418,9 +435,6 @@ def options(index):
 			exit_options = True
 		elif action == '5':
 			delete_page(index)
-			exit_options = True
-		elif action == '6':
-			add_to_reference(index)
 			exit_options = True
 		else:
 			cprint('Invalid Response.','blue',attrs=['bold'])
@@ -597,7 +611,7 @@ while additional_entry == True:
 										index[topic] = index_topic(topic,volume,page)
 									else:
 										index[topic].add_pages_to_volume(volume,page)
-										
+
 									exit_search_results = True
 						except ValueError:
 							cprint('Invalid Response.', 'blue', attrs =['bold'])
