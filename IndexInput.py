@@ -646,10 +646,8 @@ while additional_entry == True:
 				cprint('-'*60,'white',attrs=['bold'])
 				additional_entry = False
 				exit_prompt = True
-				break
 			elif volume == "Cancel":
 				exit_prompt = False
-				break
 			volume = int(volume)
 			new_page = False
 			while new_page == False:
