@@ -389,7 +389,7 @@ def add_to_reference(index):
 					index[topic].add_pages_to_volume(volume,page)
 			invalid_response = True
 			while invalid_response == True:
-				response_4 = input(colored("Add to Additional Reference? ([y],n): ", 'red', attrs =['bold']))
+				response_4 = input(colored("Add to Additional Reference? ([y],n): ", 'red', attrs =['bold'])).capitalize()
 				if response_4 not in ['Y', '', 'N']:
 					cprint('Invalid Response.', 'blue', attrs =['bold']) 
 					invalid_response = True
@@ -399,7 +399,7 @@ def add_to_reference(index):
 				else:
 					exit_add_to_reference = False
 					invalid_response = False
-						
+
 
 
 		# 	if topic_string in index.keys():
