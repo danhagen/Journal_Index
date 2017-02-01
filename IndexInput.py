@@ -550,10 +550,10 @@ def options(index):
 def index_from_letter(letters,index):
 	for letter in letters:
 		latexfile.write("\\subsection*{" + letter.capitalize() +"} \n" + \
-								"\\begin{align*} \n")
+								"\\begin{flalign*} \n")
 		for key in sorted(index.keys()):
 			if key[0] == letter: latexfile.write(index[key].print_topic())
-		latexfile.write("\\end{align*} \n")\
+		latexfile.write("\\end{flalign*} \n")\
 			
 
 
@@ -726,11 +726,11 @@ latexfile.write("\\documentclass[a4paper]{article} \n" + \
 					"\\begin{document} \n" + \
 					"\\section*{Index} \n" + \
 					"\\allowdisplaybreaks \n" + \
-					"\\begin{align*} \n")
+					"\\begin{flalign*} \n")
 for key in sorted(index.keys()):
 	if key[0] not in alphabet:
 		latexfile.write(index[key].print_topic())
-latexfile.write("\\end{align*} \n")
+latexfile.write("\\end{flalign*} \n")
 index_from_letter(alphabet,index)
 latexfile.write("\\end{document}")
 latexfile.close()
