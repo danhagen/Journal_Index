@@ -707,9 +707,12 @@ while additional_entry == True:
 			cprint('-'*60,'white',attrs=['bold'])
 			additional_entry=False
 			exit_prompt=True
-
-alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L',\
-						'M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+alphabet = []
+for key in index.keys():
+	alphabet.append(key[0])
+alphabet = list(set(alphabet))
+# alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L',\
+# 						'M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 
 pickle.dump(index,open('journalindeces.pkl','wb'),pickle.HIGHEST_PROTOCOL)
 
