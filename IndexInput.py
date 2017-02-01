@@ -549,7 +549,7 @@ def options(index):
 # 			exit_prompt=True
 def index_from_letter(letters,index):
 	for letter in letters:
-		latexfile.write("\\textit{"+letter+"} \\\\ \\noindent\\rule{8cm}{0.4pt}")
+		latexfile.write("\\textit{"+letter+"} \\\\ \\noindent\\rule{8cm}{0.4pt} \\\\")
 		for key in sorted(index.keys()):
 			if key[0] == letter: latexfile.write(index[key].print_topic())
 			
