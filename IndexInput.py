@@ -539,7 +539,7 @@ while additional_entry == True:
 	topic_string = colored('Topic: ', 'red', attrs = ['bold'])
 	topic = input(topic_string).capitalize()
 	if topic[0] == ">":
-		topic = topic[1:]
+		topic = (topic[1:]).capitalize()
 		potential_keys = []
 		for key in index.keys():
 			if key[:len(topic)] == topic:
