@@ -408,6 +408,7 @@ latexfile.write("\\documentclass[a4paper]{article} \n" + \
 					"\\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry} \n" + \
 					"\\begin{document} \n" + \
 					"\\section*{Index} \n" + \
+					"\\allowdisplaybreaks \n" + \
 					"\\begin{align*} \n")
 for key in sorted(index.keys()):
 	latexfile.write(index[key].print_topic())
