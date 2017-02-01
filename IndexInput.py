@@ -550,7 +550,7 @@ def options(index):
 def index_from_letter(letters,index):
 	for letter in letters:
 		latexfile.write("\\subsection*{" + letter.capitalize() +"} \n" + \
-								"\\begin{align*} \n")\
+								"\\begin{align*} \n")
 		for key in sorted(index.keys()):
 			if key[0] == letter: latexfile.write(index[key].print_topic())
 		latexfile.write("\\end{align*} \n")\
