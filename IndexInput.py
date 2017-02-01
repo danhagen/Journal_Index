@@ -19,7 +19,7 @@ class index_topic:
 			self.index[str(volume)].append(page)
 	def print_topic(self):
 		keys = np.sort([int(key) for key in self.index.keys()])
-		output = "&\\text{" + self.topic +"} "
+		output = "&\\text{" + self.topic +"} \hfill"
 		for j in range(len(keys)):
 			pages = np.sort(self.index[str(keys[j])])
 			discontinuity_indicator = (np.diff(pages)!=1)*np.arange(1,len(pages),1)
