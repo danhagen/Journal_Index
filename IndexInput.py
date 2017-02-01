@@ -49,9 +49,9 @@ class index_topic:
 								pages_string += "-" + str(pages[i]) + ", " + str(pages[i+1])
 						pages_string += "-" + str(pages[-1])
 			if j == 0:
-				output +=  "vol. " + str(keys[j]) + ": " + pages_string + "&& \\\\" + "\n"
+				output +=  "vol. " + str(keys[j]) + ": " + pages_string + "\\\\" + "\n"
 			else:
-				output += "& vol. " + str(keys[j]) + ": " + pages_string + "&& \\\\" + "\n"
+				output += "& vol. " + str(keys[j]) + ": " + pages_string + "\\\\" + "\n"
 		return(output) 
 def print_reference(topic_string,index):
 	keys = np.sort([int(key) for key in index[topic_string].index.keys()])
