@@ -537,45 +537,45 @@ additional_entry = True
 while additional_entry == True:
 	cprint('-'*60,'white',attrs=['bold'])
 	topic_string = colored('Topic: ', 'red', attrs = ['bold'])
-	topic = input(topic_string).capitalize()
-	if topic[0] == ">":
-		topic = (topic[1:]).capitalize()
-		potential_keys = []
-		for key in index.keys():
-			if key[:len(topic)] == topic:
-				potential_keys.append(key)
-		if len(potential_keys)==0: 
-			cprint("No references matched your search.", 'blue', attrs = ['bold'])
-		else:
-			cprint('-'*60,'white',attrs=['bold'])
-			cprint('Search Results','blue',attrs = ['bold','underline'])
-			[cprint(str(i+1) + " - " + potential_keys[i], 'white') for i in range(len(potential_keys))]
-			exit_search_results = False
-			while exit_search_results == False:
-				cprint('-'*60,'white',attrs=['bold'])
-				response_3 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
-				if response_3.capitalize() == "Exit": 
-					additional_entry = False
-					break
-				else:
-					try:
-						if int(response_3)-1 not in range(len(potential_keys)):
-							cprint('-'*60,'white',attrs=['bold'])
-							cprint('Number option not listed.', 'blue', attrs = ['bold'])
-							exit_search_results = False
-						else:
-							topic = potential_keys[int(response_3)-1]
-							exit_search_results = True
-					except ValueError:
-						cprint('Invalid Response.', 'blue', attrs =['bold'])
-						exit_search_again = False
-
-	elif topic == "Exit": 
+	topic = input(topic_string).capitalize()	
+	if topic == "Exit": 
 		cprint('-'*60,'white',attrs=['bold'])
 		break
 	elif topic == "Options": 
 		options(index)
 	else:
+		if topic[0] == ">":
+			topic = (topic[1:]).capitalize()
+			potential_keys = []
+			for key in index.keys():
+				if key[:len(topic)] == topic:
+					potential_keys.append(key)
+			if len(potential_keys)==0: 
+				cprint("No references matched your search.", 'blue', attrs = ['bold'])
+			else:
+				cprint('-'*60,'white',attrs=['bold'])
+				cprint('Search Results','blue',attrs = ['bold','underline'])
+				[cprint(str(i+1) + " - " + potential_keys[i], 'white') for i in range(len(potential_keys))]
+				exit_search_results = False
+				while exit_search_results == False:
+					cprint('-'*60,'white',attrs=['bold'])
+					response_3 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
+					if response_3.capitalize() == "Exit": 
+						additional_entry = False
+						break
+					else:
+						try:
+							if int(response_3)-1 not in range(len(potential_keys)):
+								cprint('-'*60,'white',attrs=['bold'])
+								cprint('Number option not listed.', 'blue', attrs = ['bold'])
+								exit_search_results = False
+							else:
+								topic = potential_keys[int(response_3)-1]
+								exit_search_results = True
+						except ValueError:
+							cprint('Invalid Response.', 'blue', attrs =['bold'])
+							exit_search_again = False
+
 		volume_string = colored('Volume: ', 'red', attrs = ['bold'])
 		volume = input(volume_string).capitalize()
 		if volume == "Exit": break
