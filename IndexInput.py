@@ -595,6 +595,7 @@ while additional_entry == True:
 								volume_string = colored('Volume: ', 'red', attrs = ['bold'])
 								volume = input(volume_string).capitalize()
 								if volume == "Exit": 
+									cprint('-'*60,'white',attrs=['bold'])
 									additional_entry = False
 									exit_prompt = True
 									break
@@ -604,6 +605,7 @@ while additional_entry == True:
 									page_string = colored('Page: ', 'red', attrs = ['bold'])
 									page = input(page_string).capitalize()
 									if page == "Exit":
+										cprint('-'*60,'white',attrs=['bold'])
 										additional_entry = False
 										exit_prompt = True
 										break
@@ -633,6 +635,7 @@ while additional_entry == True:
 			volume_string = colored('Volume: ', 'red', attrs = ['bold'])
 			volume = input(volume_string).capitalize()
 			if volume == "Exit":
+				cprint('-'*60,'white',attrs=['bold'])
 				additional_entry = False
 				exit_prompt = True
 				break
@@ -642,6 +645,7 @@ while additional_entry == True:
 				page_string = colored('Page: ', 'red', attrs = ['bold'])
 				page = input(page_string).capitalize()
 				if page == "Exit":
+					cprint('-'*60,'white',attrs=['bold'])
 					additional_entry = False
 					exit_prompt = True 
 					break
