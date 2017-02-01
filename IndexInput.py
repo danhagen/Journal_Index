@@ -380,6 +380,8 @@ def add_to_reference(index):
 				else:
 					index[topic].add_pages_to_volume(volume,page)
 
+				another_reference_to_add = False
+
 
 		# 	if topic_string in index.keys():
 		# 		print_reference(topic_string,index)
