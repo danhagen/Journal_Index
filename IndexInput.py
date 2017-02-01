@@ -584,6 +584,9 @@ while additional_entry == True:
 						additional_entry = False
 						exit_prompt = True
 						break
+					elif response_3.capitalize() == "Cancel": 
+						exit_prompt = False
+						break
 					else:
 						try:
 							if int(response_3)-1 not in range(len(potential_keys)):
