@@ -21,8 +21,8 @@ class index_topic:
 		keys = np.sort([int(key) for key in self.index.keys()])
 		output = "&\\text{" + self.topic +"} \\hspace*{10em}"
 		for j in range(len(keys)):
-			pages = np.sort(self.index[str(keys[j])])
-			pages = list(set(pages))
+			pages = list(set(self.index[str(keys[j])]))
+			pages = np.sort(pages)
 			discontinuity_indicator = (np.diff(pages)!=1)*np.arange(1,len(pages),1)
 			if len(pages)==1:
 				pages_string = "p. " + str(pages[0])
