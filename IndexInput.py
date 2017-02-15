@@ -1,6 +1,7 @@
 import pickle
 import numpy as np
 from termcolor import cprint,colored
+import ipdb
 
 class index_topic:
 
@@ -21,7 +22,9 @@ class index_topic:
 		keys = np.sort([int(key) for key in self.index.keys()])
 		output = "&\\text{" + self.topic +"} \\hspace*{10em}"
 		for j in range(len(keys)):
-			pages = np.sort(set(self.index[str(keys[j])]))
+			pages = np.sort(self.index[str(keys[j])])
+			pages = set(pages)
+			ipdb.set_trace()
 			discontinuity_indicator = (np.diff(pages)!=1)*np.arange(1,len(pages),1)
 			if len(pages)==1:
 				pages_string = "p. " + str(pages[0])
