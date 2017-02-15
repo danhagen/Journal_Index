@@ -33,21 +33,33 @@ class index_topic:
 					if discontinuity_indicator[-1] != 0:
 						for i in range(2,len(discontinuity_indicator)):
 							if discontinuity_indicator[i] != 0:
-								pages_string += "-" + str(pages[i]) + ", " + str(pages[i+1])
+								if discontinuity_indicator[i-1] != 0:
+									pages_string += ", " + str(pages[i+1])
+								else:
+									pages_string += "-" + str(pages[i]) + ", " + str(pages[i+1])
 					else:
 						for i in range(2,len(discontinuity_indicator-1)):
 							if discontinuity_indicator[i] != 0:
-								pages_string += "-" + str(pages[i]) + ", " + str(pages[i+1])
+								if discontinuity_indicator[i-1] != 0:
+									pages_string += ", " + str(pages[i+1])
+								else:
+									pages_string += "-" + str(pages[i]) + ", " + str(pages[i+1])
 						pages_string += "-" + str(pages[-1])
 				else:
 					if discontinuity_indicator[-1] != 0:
 						for i in range(1,len(discontinuity_indicator)):
 							if discontinuity_indicator[i] != 0:
-								pages_string += "-" + str(pages[i]) + ", " + str(pages[i+1])
+								if discontinuity_indicator[i-1] != 0:
+									pages_string += ", " + str(pages[i+1])
+								else:
+									pages_string += "-" + str(pages[i]) + ", " + str(pages[i+1])
 					else:
 						for i in range(1,len(discontinuity_indicator-1)):
 							if discontinuity_indicator[i] != 0:
-								pages_string += "-" + str(pages[i]) + ", " + str(pages[i+1])
+								if discontinuity_indicator[i-1] != 0:
+									pages_string += ", " + str(pages[i+1])
+								else:
+									pages_string += "-" + str(pages[i]) + ", " + str(pages[i+1])
 						pages_string += "-" + str(pages[-1])
 			if j == 0:
 				output +=  "&& vol. " + str(keys[j]) + ": " + pages_string + "\\\\" + "\n"
