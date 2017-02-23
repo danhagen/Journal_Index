@@ -575,7 +575,8 @@ while additional_entry == True:
 	exit_prompt = False
 	cprint('-'*60,'white',attrs=['bold'])
 	topic_string = colored('Topic: ', 'red', attrs = ['bold'])
-	topic = input(topic_string).capitalize()	
+	if topic_string != "^[[A":
+		topic = input(topic_string).capitalize()	
 	if topic == "Exit": 
 		cprint('-'*60,'white',attrs=['bold'])
 		break
