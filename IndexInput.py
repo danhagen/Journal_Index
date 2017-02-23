@@ -575,7 +575,10 @@ while additional_entry == True:
 	exit_prompt = False
 	cprint('-'*60,'white',attrs=['bold'])
 	topic_string = colored('Topic: ', 'red', attrs = ['bold'])
-	if topic_string != '+': topic = input(topic_string).capitalize()	
+	topic_response = input(topic_string).capitalize()
+	# Attempting to have a previous input function
+	if topic_response != '+': topic = topic_response
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	if topic == "Exit": 
 		cprint('-'*60,'white',attrs=['bold'])
 		break
