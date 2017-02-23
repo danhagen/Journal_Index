@@ -577,7 +577,7 @@ while additional_entry == True:
 	topic_string = colored('Topic: ', 'red', attrs = ['bold'])
 	topic_response = input(topic_string).capitalize()
 	# Attempting to have a previous input function
-	if topic_response != '\x1b[A': topic = topic_response
+	if topic_response != '\x1b[a': topic = topic_response
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	if topic == "Exit": 
 		cprint('-'*60,'white',attrs=['bold'])
