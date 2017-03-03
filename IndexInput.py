@@ -352,7 +352,7 @@ def generate_latex_file(index):
 	generate_another_latex_file = True
 	while generate_another_latex_file == True:
 		cprint('-'*60,'white',attrs=['bold'])
-		cprint('Generate Index Latex File for Volume','blue',attrs = ['bold','underline'])
+		cprint('Generate Index for Volume Number','blue',attrs = ['bold','underline'])
 		valid_response_1 = False
 		while valid_response_1 == False:
 			volume_number = input(colored('Volume: ','red',attrs = ['bold'])).capitalize()
