@@ -1,6 +1,8 @@
 import pickle
 import numpy as np
 from termcolor import cprint,colored
+import platform
+import subprocess
 
 class index_topic:
 
@@ -362,6 +364,21 @@ def generate_latex_file(index):
 				print_index(filename,volume=int(volume_number))
 				valid_response_1 = True
 				generate_another_latex_file = False
+				platform_name = platform.system()
+				if platform_name == 'Windows':
+					pdflatex_cmd = "pdflatex " + filename + " >nul 2>nul"
+					commit_message = "git commit --quiet -m 'Adding to  Volume " +volume_number+ " Index!'" 
+					subprocess.call(args=[pdflatex_cmd],shell=True)
+					subprocess.call(args=["git add ."], shell = True) 
+					subprocess.call(args=[commit_message], shell = True)
+					subprocess.call(args=["git push --quiet origin master"], shell = True)
+				else:
+					pdflatex_cmd = "pdflatex " + filename + " &> /dev/null"
+					commit_message = "git commit --quiet -m 'Adding to  Volume " +volume_number+ " Index!'" 
+					subprocess.call(args=[pdflatex_cmd],shell=True)
+					subprocess.call(args=["git add ."], shell = True) 
+					subprocess.call(args=[commit_message], shell = True)
+					subprocess.call(args=["git push --quiet origin master"], shell = True)
 
 def options(index):
 	exit_options = False
