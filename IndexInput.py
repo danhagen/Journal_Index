@@ -568,7 +568,7 @@ def options(index):
 # 			cprint('-'*60,'white',attrs=['bold'])
 # 			additional_entry=False
 # 			exit_prompt=True
-def index_from_letter(letters,index):
+def index_from_letter(latexfile,letters,index):
 	for letter in letters:
 		latexfile.write("\\textit{"+letter+"\\hspace{0.5em}} \\\\")
 		for key in sorted(index.keys()):
@@ -756,7 +756,7 @@ def print_index(filename,volume=None):
 	for key in sorted(index.keys()):
 		if key[0] not in alphabet:
 			latexfile.write(index[key].print_topic(volume=volume))
-	index_from_letter(alphabet,index)
+	index_from_letter(latexfile,alphabet,index)
 	latexfile.write("\\end{flalign*} \n")
 	latexfile.write("\\end{document}")
 	latexfile.close()
