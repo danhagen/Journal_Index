@@ -367,14 +367,14 @@ def generate_latex_file(index):
 				platform_name = platform.system()
 				if platform_name == 'Windows':
 					pdflatex_cmd = "pdflatex " + filename + " >nul 2>nul"
-					commit_message = "git commit --quiet -m 'Adding to  Volume " +volume_number+ " Index!'" 
+					commit_message = 'git commit --quiet -m "Adding to Volume ' +volume_number+ ' Index!"'
 					subprocess.call(pdflatex_cmd,shell=True)
 					subprocess.call("git add .", shell = True) 
 					subprocess.call(commit_message, shell = True)
 					subprocess.call("git push --quiet origin master", shell = True)
 				else:
 					pdflatex_cmd = "pdflatex " + filename + " &> /dev/null"
-					commit_message = "git commit --quiet -m ''Adding to  Volume " +volume_number+ " Index!''" 
+					commit_message = "git commit --quiet -m 'Adding to  Volume " +volume_number+ " Index!'" 
 					subprocess.call(args=[pdflatex_cmd],shell=True)
 					subprocess.call(args=["git add ."], shell = True) 
 					subprocess.call(args=[commit_message], shell = True)
