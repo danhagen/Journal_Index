@@ -732,6 +732,26 @@ alphabet = sorted(list(set(alphabet)))
 
 pickle.dump(index,open('journalindeces.pkl','wb'),pickle.HIGHEST_PROTOCOL)
 
+def print_index(filename,volume=None):
+	latexfile = open(filename,"w")
+	latexfile.write("\\documentclass[a4paper]{article} \n" + \
+						"\\usepackage[english]{babel} \n" + \
+						"\\usepackage[utf8x]{inputenc} \n" + \
+						"\\usepackage[T1]{fontenc} \n" + \
+						"\\usepackage{ragged2e} \n" + \
+						"\\usepackage{amsmath} \n" + \
+						"\\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry} \n" + \
+						"\\begin{document} \n" + \
+						"\\section*{Index} \n" + \
+						"\\allowdisplaybreaks \n" + \
+						"\\begin{flalign*} \n")
+	for key in sorted(index.keys()):
+		if key[0] not in alphabet:
+			latexfile.write(index[key].print_topic())
+	index_from_letter(alphabet,index)
+	latexfile.write("\\end{flalign*} \n")
+	latexfile.write("\\end{document}")
+	latexfile.close()
 latexfile = open("main.tex","w")
 latexfile.write("\\documentclass[a4paper]{article} \n" + \
 					"\\usepackage[english]{babel} \n" + \
