@@ -17,8 +17,13 @@ class index_topic:
 			self.index[str(volume)] = [page]
 		else:
 			self.index[str(volume)].append(page)
-	def print_topic(self):
-		keys = np.sort([int(key) for key in self.index.keys()])
+	def print_topic(self,volume=None):
+		if volume == None:
+			keys = np.sort([int(key) for key in self.index.keys()])
+		else:
+			assert type(volume)==int,"Volume must be an integer."
+			assert str(volume) in self.index.keys(), self.topic() " is not in volume " + str(volume) + "."
+			keys = [volume]
 		output = "&\\text{" + self.topic +"} \\hspace*{10em}"
 		for j in range(len(keys)):
 			pages = list(set(self.index[str(keys[j])]))
@@ -62,7 +67,10 @@ class index_topic:
 									pages_string += "-" + str(pages[i]) + ", " + str(pages[i+1])
 						pages_string += "-" + str(pages[-1])
 			if j == 0:
-				output +=  "&& vol. " + str(keys[j]) + ": " + pages_string + "\\\\" + "\n"
+				if volume != None:
+					output +=  "&&" + pages_string + "\\\\" + "\n"
+				else:
+					output +=  "&& vol. " + str(keys[j]) + ": " + pages_string + "\\\\" + "\n"
 			else:
 				output += "& && vol. " + str(keys[j]) + ": " + pages_string + "\\\\" + "\n"
 		return(output) 
