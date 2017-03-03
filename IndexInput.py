@@ -403,11 +403,11 @@ def options(index):
 			cprint('Invalid Response.','blue',attrs=['bold'])
 			exit_options = False
 
-def index_from_letter(latexfile,letters,index):
+def index_from_letter(latexfile,letters,index,volume):
 	for letter in letters:
 		latexfile.write("\\textit{"+letter+"\\hspace{0.5em}} \\\\")
 		for key in sorted(index.keys()):
-			if key[0] == letter: latexfile.write(index[key].print_topic())
+			if key[0] == letter: latexfile.write(index[key].print_topic(volume =volume))
 
 def print_index(filename,volume=None):
 	alphabet = []
@@ -434,7 +434,7 @@ def print_index(filename,volume=None):
 	for key in sorted(index.keys()):
 		if key[0] not in alphabet:
 			latexfile.write(index[key].print_topic(volume=volume))
-	index_from_letter(latexfile,alphabet,index)
+	index_from_letter(latexfile,alphabet,index,volume)
 	latexfile.write("\\end{flalign*} \n")
 	latexfile.write("\\end{document}")
 	latexfile.close()			
