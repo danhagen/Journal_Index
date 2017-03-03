@@ -28,7 +28,7 @@ class index_topic:
 				keys = []
 			else:
 				keys = [volume]
-		output = "&\\text{" + self.topic +"} \\hspace*{8em}"
+		output = "&\\text{" + self.topic +"} \\hspace*{6em}"
 		for j in range(len(keys)):
 			pages = list(set(self.index[str(keys[j])]))
 			pages = np.sort(pages)
