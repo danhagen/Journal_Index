@@ -22,8 +22,10 @@ class index_topic:
 			keys = np.sort([int(key) for key in self.index.keys()])
 		else:
 			assert type(volume)==int,"Volume must be an integer."
-			assert str(volume) in self.index.keys(), self.topic() + " is not in volume " + str(volume) + "."
-			keys = [volume]
+			if str(volume) not in self.index.keys():
+				keys = []
+			else:
+				keys = [volume]
 		output = "&\\text{" + self.topic +"} \\hspace*{10em}"
 		for j in range(len(keys)):
 			pages = list(set(self.index[str(keys[j])]))
@@ -356,8 +358,8 @@ def generate_latex_file(index):
 				valid_response_1 = True
 				generate_another_latex_file = False
 			else:
-				filename = "Volume" + int(volume_number) + "Index.tex"
-				print_index(filename,volume=volume_number)
+				filename = "Volume" + volume_number + "Index.tex"
+				print_index(filename,volume=int(volume_number))
 				valid_response_1 = True
 				generate_another_latex_file = False
 
