@@ -22,7 +22,7 @@ class index_topic:
 			keys = np.sort([int(key) for key in self.index.keys()])
 		else:
 			assert type(volume)==int,"Volume must be an integer."
-			assert str(volume) in self.index.keys(), self.topic() " is not in volume " + str(volume) + "."
+			assert str(volume) in self.index.keys(), self.topic() + " is not in volume " + str(volume) + "."
 			keys = [volume]
 		output = "&\\text{" + self.topic +"} \\hspace*{10em}"
 		for j in range(len(keys)):
