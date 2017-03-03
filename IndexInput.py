@@ -1,6 +1,8 @@
 import pickle
 import numpy as np
 from termcolor import cprint,colored
+import platform
+import subprocess
 
 class index_topic:
 
@@ -17,8 +19,15 @@ class index_topic:
 			self.index[str(volume)] = [page]
 		else:
 			self.index[str(volume)].append(page)
-	def print_topic(self):
-		keys = np.sort([int(key) for key in self.index.keys()])
+	def print_topic(self,volume=None):
+		if volume == None:
+			keys = np.sort([int(key) for key in self.index.keys()])
+		else:
+			assert type(volume)==int,"Volume must be an integer."
+			if str(volume) not in self.index.keys():
+				keys = []
+			else:
+				keys = [volume]
 		output = "&\\text{" + self.topic +"} \\hspace*{10em}"
 		for j in range(len(keys)):
 			pages = list(set(self.index[str(keys[j])]))
@@ -62,7 +71,10 @@ class index_topic:
 									pages_string += "-" + str(pages[i]) + ", " + str(pages[i+1])
 						pages_string += "-" + str(pages[-1])
 			if j == 0:
-				output +=  "&& vol. " + str(keys[j]) + ": " + pages_string + "\\\\" + "\n"
+				if volume != None:
+					output +=  "&&" + pages_string + "\\\\" + "\n"
+				else:
+					output +=  "&& vol. " + str(keys[j]) + ": " + pages_string + "\\\\" + "\n"
 			else:
 				output += "& && vol. " + str(keys[j]) + ": " + pages_string + "\\\\" + "\n"
 		return(output) 
@@ -133,7 +145,7 @@ def print_single_reference(index):
 		cprint('Print Reference','blue',attrs = ['bold','underline'])
 		valid_response_1 = False
 		while valid_response_1 == False:
-			topic_string = input(colored('Topic: ','red',attrs = ['bold'])).capitalize()
+			topic_string = input(colored('Topic: ','red', attrs = ['bold'])).capitalize()
 			if topic_string in index.keys():
 				print_reference(topic_string,index)
 				valid_response_1 = True
@@ -336,90 +348,37 @@ def delete_page(index):
 			else:
 				cprint('Invalid Response.', 'blue', attrs =['bold'])
 				valid_response_5 = False
-
-# def add_to_reference(index):
-# 	# exit_add_to_reference = False
-# 	# while exit_add_to_reference == False:
-# 	cprint('-'*60,'white',attrs=['bold'])
-# 	cprint('Add To Existing Reference','blue',attrs = ['bold','underline'])
-# 	exit_lookup = False
-# 	while exit_lookup == False:
-# 		lookup_string = input(colored('Index Lookup: ','red',attrs = ['bold'])).capitalize()
-# 		potential_keys = []
-# 		for key in index.keys():
-# 			if key[:len(lookup_string)] == lookup_string:
-# 				potential_keys.append(key)
-# 		if len(potential_keys)==0: 
-# 			exit_search_again = False
-# 			while exit_search_again == False:
-# 				cprint('-'*60,'white',attrs=['bold'])
-# 				response_2 = input(colored("No references matched your search.", 'blue', attrs = ['bold']) \
-# 								+ colored(" Search again? ([y],n): ", 'red', attrs = ['bold'])).capitalize()
-# 				if response_2 in ['Y', '']:
-# 					exit_lookup = False
-# 					exit_search_again = True
-# 				elif response_2 == 'N':
-# 					cprint('-'*60,'white',attrs=['bold'])
-# 					exit_lookup = True
-# 					exit_search_again = True
-# 				else:
-# 					cprint('-'*60,'white',attrs=['bold'])
-# 					cprint('Invalid Response.', 'blue', attrs =['bold'])
-# 					exit_search_again = False
-# 		else:
-# 			cprint('-'*60,'white',attrs=['bold'])
-# 			cprint('Search Results','blue',attrs = ['bold','underline'])
-# 			[cprint(str(i+1) + " - " + potential_keys[i], 'white') for i in range(len(potential_keys))]
-# 			exit_search_results = False
-# 			while exit_search_results == False:
-# 				cprint('-'*60,'white',attrs=['bold'])
-# 				response_3 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
-# 				if response_3.capitalize() == "Exit": 
-# 					return
-# 				else:
-# 					try:
-# 						if int(response_3)-1 not in range(len(potential_keys)):
-# 							cprint('-'*60,'white',attrs=['bold'])
-# 							cprint('Number option not listed.', 'blue', attrs = ['bold'])
-# 							exit_search_results = False
-# 						else:
-# 							topic = potential_keys[int(response_3)-1]
-# 							exit_search_results = True
-# 					except ValueError:
-# 						cprint('Invalid Response.', 'blue', attrs =['bold'])
-# 						exit_search_again = False
-
-# 			cprint('-'*60,'white',attrs=['bold'])
-# 			cprint("Add to '" + topic + "'",'blue',attrs = ['bold','underline'])
-# 			volume_string = colored('Volume: ', 'red', attrs = ['bold'])
-# 			volume = input(volume_string).capitalize()
-# 			if volume == "Exit": 
-# 				return
-# 			volume = int(volume)
-# 			new_page = False
-# 			while new_page == False:
-# 				page_string = colored('Page: ', 'red', attrs = ['bold'])
-# 				page = input(page_string).capitalize()
-# 				if page == "Exit": 
-# 					return
-# 				page = int(page)
-# 				if topic in index.keys():
-# 					if str(volume) not in index[topic].index.keys():
-# 						new_page = True
-# 					elif page in index[topic].index[str(volume)]:
-# 						cprint("Page " + str(page) + " in vol. " + str(volume) \
-# 								+ " is already indexed for topic '" + topic + "'.", 'blue', attrs = ['bold'])
-# 						new_page = False
-# 					else:
-# 						new_page = True
-# 				else:
-# 					new_page = True
-
-# 			if topic not in index.keys():
-# 				index[topic] = index_topic(topic,volume,page)
-# 			else:
-# 				index[topic].add_pages_to_volume(volume,page)
-# 			exit_lookup = True
+def generate_latex_file(index):
+	generate_another_latex_file = True
+	while generate_another_latex_file == True:
+		cprint('-'*60,'white',attrs=['bold'])
+		cprint('Generate Index for Volume Number','blue',attrs = ['bold','underline'])
+		valid_response_1 = False
+		while valid_response_1 == False:
+			volume_number = input(colored('Volume: ','red',attrs = ['bold'])).capitalize()
+			if volume_number == "Cancel":
+				valid_response_1 = True
+				generate_another_latex_file = False
+			else:
+				filename = "Volume" + volume_number + "Index.tex"
+				print_index(filename,volume=int(volume_number))
+				valid_response_1 = True
+				generate_another_latex_file = False
+				platform_name = platform.system()
+				if platform_name == 'Windows':
+					pdflatex_cmd = "pdflatex " + filename + " >nul 2>nul"
+					commit_message = "git commit --quiet -m 'Adding to  Volume " +volume_number+ " Index!'" 
+					subprocess.call(args=[pdflatex_cmd],shell=True)
+					subprocess.call(args=["git add ."], shell = True) 
+					subprocess.call(args=[commit_message], shell = True)
+					subprocess.call(args=["git push --quiet origin master"], shell = True)
+				else:
+					pdflatex_cmd = "pdflatex " + filename + " &> /dev/null"
+					commit_message = "git commit --quiet -m 'Adding to  Volume " +volume_number+ " Index!'" 
+					subprocess.call(args=[pdflatex_cmd],shell=True)
+					subprocess.call(args=["git add ."], shell = True) 
+					subprocess.call(args=[commit_message], shell = True)
+					subprocess.call(args=["git push --quiet origin master"], shell = True)
 
 def options(index):
 	exit_options = False
@@ -431,6 +390,7 @@ def options(index):
 			   '\n- Delete Reference             (3)'+\
 			   '\n- Delete Volume Reference      (4)'+\
 			   '\n- Delete Page Reference        (5)'+\
+			   '\n- Print Volume Index (Latex)   (6)'+\
 			   '\n- [Exit]\n','blue',\
 			   attrs=['bold'])
 		cprint('-'*60,'white',attrs=['bold'])
@@ -453,119 +413,48 @@ def options(index):
 		elif action == '5':
 			delete_page(index)
 			exit_options = True
+		elif action == '6':
+			generate_latex_file(index)
+			exit_options = True
 		else:
 			cprint('Invalid Response.','blue',attrs=['bold'])
 			exit_options = False
 
-# def additional_entries(index):
-# 	exit_lookup = False
-# 	while exit_lookup == False:
-# 		lookup_string = input(colored("Topic (>> - Search for Topic): ",'red',attrs = ['bold'])).capitalize()
-# 		if lookup_string[0] == "\\"
-# 		potential_keys = []
-# 		for key in index.keys():
-# 			if key[:len(lookup_string)] == lookup_string:
-# 				potential_keys.append(key)
-# 		if len(potential_keys)==0: 
-# 			exit_search_again = False
-# 			while exit_search_again == False:
-# 				cprint('-'*60,'white',attrs=['bold'])
-# 				response_2 = input(colored("No references matched your search.", 'blue', attrs = ['bold']) \
-# 								+ colored(" Search again? ([y],n): ", 'red', attrs = ['bold'])).capitalize()
-# 				if response_2 in ['Y', '']:
-# 					exit_lookup = False
-# 					exit_search_again = True
-# 				elif response_2 == 'N':
-# 					cprint('-'*60,'white',attrs=['bold'])
-# 					exit_lookup = True
-# 					exit_search_again = True
-# 				else:
-# 					cprint('-'*60,'white',attrs=['bold'])
-# 					cprint('Invalid Response.', 'blue', attrs =['bold'])
-# 					exit_search_again = False
-# 		else:
-# 			cprint('-'*60,'white',attrs=['bold'])
-# 			cprint('Search Results','blue',attrs = ['bold','underline'])
-# 			[cprint(str(i+1) + " - " + potential_keys[i], 'white') for i in range(len(potential_keys))]
-# 			exit_search_results = False
-# 			while exit_search_results == False:
-# 				cprint('-'*60,'white',attrs=['bold'])
-# 				response_3 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
-# 				if response_3.capitalize() == "Exit": 
-# 					return
-# 				else:
-# 					try:
-# 						if int(response_3)-1 not in range(len(potential_keys)):
-# 							cprint('-'*60,'white',attrs=['bold'])
-# 							cprint('Number option not listed.', 'blue', attrs = ['bold'])
-# 							exit_search_results = False
-# 						else:
-# 							topic = potential_keys[int(response_3)-1]
-# 							exit_search_results = True
-# 					except ValueError:
-# 						cprint('Invalid Response.', 'blue', attrs =['bold'])
-# 						exit_search_again = False
-
-# 	cprint('-'*60,'white',attrs=['bold'])
-# 	topic_string = colored('Topic: ', 'red', attrs = ['bold'])
-# 	topic = input(topic_string).capitalize()
-# 	if topic == "Exit": 
-# 		cprint('-'*60,'white',attrs=['bold'])
-# 		break
-# 	elif topic == "Options": 
-# 		options(index)
-# 	else:
-# 		volume_string = colored('Volume: ', 'red', attrs = ['bold'])
-# 		volume = input(volume_string).capitalize()
-# 		if volume == "Exit": break
-# 		volume = int(volume)
-# 		new_page = False
-# 		while new_page == False:
-# 			page_string = colored('Page: ', 'red', attrs = ['bold'])
-# 			page = input(page_string).capitalize()
-# 			if page == "Exit": break
-# 			page = int(page)
-# 			if topic in index.keys():
-# 				if str(volume) not in index[topic].index.keys():
-# 					new_page = True
-# 				elif page in index[topic].index[str(volume)]:
-# 					cprint("Page " + str(page) + " in vol. " + str(volume) \
-# 							+ " is already indexed for topic '" + topic + "'.", 'blue', attrs = ['bold'])
-# 					new_page = False
-# 				else:
-# 					new_page = True
-# 			else:
-# 				new_page = True
-
-# 		if topic not in index.keys():
-# 			index[topic] = index_topic(topic,volume,page)
-# 		else:
-# 			index[topic].add_pages_to_volume(volume,page)
-
-# 	exit_prompt = False
-# 	while exit_prompt == False:
-# 		cprint('-'*60,'white',attrs=['bold'])
-# 		response_string = colored("Additional Entries? ([y]/n): ",'red',attrs=['bold'])
-# 		response = input(response_string).capitalize()
-# 		if response not in ['Y','','N','Options']:
-# 			cprint('Invalid Response. ','blue',attrs = ['bold'])
-# 			exit_prompt=False
-# 		elif response in ['Y','']:
-# 			additional_entry=True
-# 			exit_prompt=True
-# 		elif response == 'Options':
-# 			options(index)
-# 			exit_prompt = False
-# 		else:
-# 			cprint('-'*60,'white',attrs=['bold'])
-# 			additional_entry=False
-# 			exit_prompt=True
-def index_from_letter(letters,index):
+def index_from_letter(latexfile,letters,index,volume):
 	for letter in letters:
 		latexfile.write("\\textit{"+letter+"\\hspace{0.5em}} \\\\")
 		for key in sorted(index.keys()):
-			if key[0] == letter: latexfile.write(index[key].print_topic())
-			
+			if key[0] == letter: latexfile.write(index[key].print_topic(volume =volume))
+
+def print_index(filename,volume=None):
+	alphabet = []
+	for key in index.keys():
+		if volume == None:
+			alphabet.append(key[0])
+		else:
+			if str(volume) in index[key].index.keys():
+				alphabet.append(key[0])
+	alphabet = sorted(list(set(alphabet)))
+
+	latexfile = open(filename,"w")
+	latexfile.write("\\documentclass[a4paper]{article} \n" + \
+						"\\usepackage[english]{babel} \n" + \
+						"\\usepackage[utf8x]{inputenc} \n" + \
+						"\\usepackage[T1]{fontenc} \n" + \
+						"\\usepackage{ragged2e} \n" + \
+						"\\usepackage{amsmath} \n" + \
+						"\\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry} \n" + \
+						"\\begin{document} \n" + \
+						"\\section*{Index} \n" + \
+						"\\allowdisplaybreaks \n" + \
+						"\\begin{flalign*} \n")
+	for key in sorted(index.keys()):
+		if key[0] not in alphabet:
+			latexfile.write(index[key].print_topic(volume=volume))
+	index_from_letter(latexfile,alphabet,index,volume)
+	latexfile.write("\\end{flalign*} \n")
+	latexfile.write("\\end{document}")
+	latexfile.close()			
 
 
 index = pickle.load(open('journalindeces.pkl','rb'))
@@ -727,29 +616,10 @@ alphabet = []
 for key in index.keys():
 	alphabet.append(key[0])
 alphabet = sorted(list(set(alphabet)))
-# alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L',\
-# 						'M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 
 pickle.dump(index,open('journalindeces.pkl','wb'),pickle.HIGHEST_PROTOCOL)
 
-latexfile = open("main.tex","w")
-latexfile.write("\\documentclass[a4paper]{article} \n" + \
-					"\\usepackage[english]{babel} \n" + \
-					"\\usepackage[utf8x]{inputenc} \n" + \
-					"\\usepackage[T1]{fontenc} \n" + \
-					"\\usepackage{ragged2e} \n" + \
-					"\\usepackage{amsmath} \n" + \
-					"\\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry} \n" + \
-					"\\begin{document} \n" + \
-					"\\section*{Index} \n" + \
-					"\\allowdisplaybreaks \n" + \
-					"\\begin{flalign*} \n")
-for key in sorted(index.keys()):
-	if key[0] not in alphabet:
-		latexfile.write(index[key].print_topic())
-index_from_letter(alphabet,index)
-latexfile.write("\\end{flalign*} \n")
-latexfile.write("\\end{document}")
-latexfile.close()
+print_index("main.tex")
+
 
 
