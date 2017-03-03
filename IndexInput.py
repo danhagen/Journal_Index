@@ -374,7 +374,7 @@ def generate_latex_file(index):
 					subprocess.call("git push --quiet origin master", shell = True)
 				else:
 					pdflatex_cmd = "pdflatex " + filename + " &> /dev/null"
-					commit_message = "git commit --quiet -m 'Adding to  Volume " +volume_number+ " Index!'" 
+					commit_message = "git commit --quiet -m ''Adding to  Volume " +volume_number+ " Index!''" 
 					subprocess.call(args=[pdflatex_cmd],shell=True)
 					subprocess.call(args=["git add ."], shell = True) 
 					subprocess.call(args=[commit_message], shell = True)
