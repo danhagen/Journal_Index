@@ -4,6 +4,12 @@ from termcolor import cprint,colored
 import platform
 import subprocess
 
+platform_name = platform.system()
+	if platform_name == 'Windows':
+		subprocess.call("git pull origin master", shell = True)
+	else:
+		subprocess.call(args=["git pull origin master"], shell = True)
+		
 class index_topic:
 
 	def __init__(self,topic,volume,page):
