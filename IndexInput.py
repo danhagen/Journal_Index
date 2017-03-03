@@ -410,6 +410,15 @@ def index_from_letter(latexfile,letters,index):
 			if key[0] == letter: latexfile.write(index[key].print_topic())
 
 def print_index(filename,volume=None):
+	alphabet = []
+	for key in index.keys():
+		if volume == None:
+			alphabet.append(key[0])
+		else:
+			if str(volume) in index[key].index.keys():
+				alphabet.append(key[0])
+	alphabet = sorted(list(set(alphabet)))
+
 	latexfile = open(filename,"w")
 	latexfile.write("\\documentclass[a4paper]{article} \n" + \
 						"\\usepackage[english]{babel} \n" + \
