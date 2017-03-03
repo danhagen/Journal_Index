@@ -428,12 +428,22 @@ def index_from_letter(latexfile,letters,index,volume):
 
 def print_index(filename,volume=None):
 	alphabet = []
-	for key in index.keys():
-		if volume == None:
+	keys = []
+	if volume == None:
+		keys = index.keys()
+		for key in keys:
 			alphabet.append(key[0])
-		else:
+	else:
+		for key in index.keys():
 			if str(volume) in index[key].index.keys():
+				keys.append(key)
 				alphabet.append(key[0])
+	# for key in index.keys():
+	# 	if volume == None:
+	# 		alphabet.append(key[0])
+	# 	else:
+	# 		if str(volume) in index[key].index.keys():
+	# 			alphabet.append(key[0])
 	alphabet = sorted(list(set(alphabet)))
 
 	latexfile = open(filename,"w")
@@ -448,7 +458,7 @@ def print_index(filename,volume=None):
 						"\\section*{Index} \n" + \
 						"\\allowdisplaybreaks \n" + \
 						"\\begin{flalign*} \n")
-	for key in sorted(index.keys()):
+	for key in sorted(keys):
 		if key[0] not in alphabet:
 			latexfile.write(index[key].print_topic(volume=volume))
 	index_from_letter(latexfile,alphabet,index,volume)
