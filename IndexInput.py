@@ -548,30 +548,31 @@ while additional_entry == True:
 										exit_search_results = True
 										exit_prompt = False
 										break
-									if page[0] == '(':
-										volume = int(page[1:page.index(')')])
-										page = int(page[page.index(')')+1:])
 									else:
-										page = int(page)
-										volume = current_volume
-									if topic in index.keys():
-										if str(volume) not in index[topic].index.keys():
-											new_page = True
-										elif page in index[topic].index[str(volume)]:
-											cprint("Page " + str(page) + " in vol. " + str(volume) \
-													+ " is already indexed for topic '" + topic + "'.", 'blue', attrs = ['bold'])
-											new_page = False
+										if page[0] == '(':
+											volume = int(page[1:page.index(')')])
+											page = int(page[page.index(')')+1:])
+										else:
+											page = int(page)
+											volume = current_volume
+										if topic in index.keys():
+											if str(volume) not in index[topic].index.keys():
+												new_page = True
+											elif page in index[topic].index[str(volume)]:
+												cprint("Page " + str(page) + " in vol. " + str(volume) \
+														+ " is already indexed for topic '" + topic + "'.", 'blue', attrs = ['bold'])
+												new_page = False
+											else:
+												new_page = True
 										else:
 											new_page = True
-									else:
-										new_page = True
-									
-									if topic not in index.keys():
-										index[topic] = index_topic(topic,volume,page)
-									else:
-										index[topic].add_pages_to_volume(volume,page)
+										
+										if topic not in index.keys():
+											index[topic] = index_topic(topic,volume,page)
+										else:
+											index[topic].add_pages_to_volume(volume,page)
 
-									exit_search_results = True
+										exit_search_results = True
 						except ValueError:
 							cprint('Invalid Response.', 'blue', attrs =['bold'])
 							exit_search_results = False
@@ -588,14 +589,13 @@ while additional_entry == True:
 				elif page == "Cancel":
 					exit_prompt = False
 					break
-				if page[0] == '(':
-					volume = int(page[1:page.index(')')])
-					page = int(page[page.index(')')+1:])
 				else:
-					page = int(page)
-					volume = current_volume
-				else:
-					page = int(page)
+					if page[0] == '(':
+						volume = int(page[1:page.index(')')])
+						page = int(page[page.index(')')+1:])
+					else:
+						page = int(page)
+						volume = current_volume
 					if topic in index.keys():
 						if str(volume) not in index[topic].index.keys():
 							new_page = True
