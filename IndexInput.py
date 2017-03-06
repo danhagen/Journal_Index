@@ -482,14 +482,14 @@ while additional_entry == True:
 	cprint('-'*60,'white',attrs=['bold'])
 	topic_string = colored('Topic: ', 'red', attrs = ['bold'])
 	topic_response = input(topic_string).capitalize()
-	# Attempting to have a previous input function
 	if topic_response != '\x1b[a': topic = topic_response
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	if topic == "Exit": 
 		cprint('-'*60,'white',attrs=['bold'])
 		break
 	elif topic == "Options": 
 		options(index)
+	elif topic == "Volume":
+		cprint("Current Volume: " + str(current_volume),'blue')
 	else:
 		if topic[0] == ">":
 			topic = (topic[1:]).capitalize()
@@ -523,17 +523,6 @@ while additional_entry == True:
 								exit_search_results = False
 							else:
 								topic = potential_keys[int(response_3)-1]
-								# volume_string = colored('Volume: ', 'red', attrs = ['bold'])
-								# volume = input(volume_string).capitalize()
-								# if volume == "Exit": 
-								# 	cprint('-'*60,'white',attrs=['bold'])
-								# 	additional_entry = False
-								# 	exit_prompt = True
-								# 	break
-								# elif volume == "Cancel":
-								# 		exit_prompt = False
-								# 		break
-								# volume = int(volume)
 								new_page = False
 								while new_page == False:
 									page_string = colored('Page: ', 'red', attrs = ['bold'])
@@ -612,46 +601,6 @@ while additional_entry == True:
 						index[topic] = index_topic(topic,volume,page)
 					else:
 						index[topic].add_pages_to_volume(volume,page)
-			# volume_string = colored('Volume: ', 'red', attrs = ['bold'])
-			# volume = input(volume_string).capitalize()
-			# if volume == "Exit":
-			# 	cprint('-'*60,'white',attrs=['bold'])
-			# 	additional_entry = False
-			# 	exit_prompt = True
-			# elif volume == "Cancel":
-			# 	exit_prompt = False
-			# else:
-			# 	volume = int(volume)
-			# 	new_page = False
-			# 	while new_page == False:
-			# 		page_string = colored('Page: ', 'red', attrs = ['bold'])
-			# 		page = input(page_string).capitalize()
-			# 		if page == "Exit":
-			# 			cprint('-'*60,'white',attrs=['bold'])
-			# 			additional_entry = False
-			# 			exit_prompt = True 
-			# 			break
-			# 		elif page == "Cancel":
-			# 			exit_prompt = False
-			# 			break
-			# 		else:
-			# 			page = int(page)
-			# 			if topic in index.keys():
-			# 				if str(volume) not in index[topic].index.keys():
-			# 					new_page = True
-			# 				elif page in index[topic].index[str(volume)]:
-			# 					cprint("Page " + str(page) + " in vol. " + str(volume) \
-			# 							+ " is already indexed for topic '" + topic + "'.", 'blue', attrs = ['bold'])
-			# 					new_page = False
-			# 				else:
-			# 					new_page = True
-			# 			else:
-			# 				new_page = True
-
-			# 			if topic not in index.keys():
-			# 				index[topic] = index_topic(topic,volume,page)
-			# 			else:
-			# 				index[topic].add_pages_to_volume(volume,page)
 
 	while exit_prompt == False:
 		cprint('-'*60,'white',attrs=['bold'])
