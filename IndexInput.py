@@ -488,7 +488,7 @@ while additional_entry == True:
 		break
 	elif topic == "Options": 
 		options(index)
-	elif topic == "Volume":
+	elif topic == "Volume?":
 		cprint("Current Volume: " + str(current_volume),'blue')
 	else:
 		if topic[0] == ">":
