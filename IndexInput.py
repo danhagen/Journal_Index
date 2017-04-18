@@ -175,11 +175,7 @@ def print_single_reference(index):
 					while exit_search_results == False:
 						cprint('-'*60,'white',attrs=['bold'])
 						valid_response_2 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
-						if valid_response_2.capitalize() == "Exit": 
-							cprint('-'*60,'white',attrs=['bold'])
-							valid_response_1 = True
-							break
-						elif valid_response_2.capitalize() == "Cancel": 
+						if valid_response_2.capitalize() == "Exit" or valid_response_2.capitalize() == "Cancel": 
 							valid_response_1 = True
 							break
 						else:
