@@ -155,7 +155,7 @@ def print_single_reference(index):
 			if topic in index.keys():
 				print_reference(topic,index)
 				valid_response_1 = True
-			elif topic == 'Exit':
+			elif topic == 'Exit' or topic == 'Cancel':
 				break
 			else:
 				if len(topic)>=4:
