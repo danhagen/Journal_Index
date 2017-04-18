@@ -151,15 +151,51 @@ def print_single_reference(index):
 		cprint('Print Reference','blue',attrs = ['bold','underline'])
 		valid_response_1 = False
 		while valid_response_1 == False:
-			topic_string = input(colored('Topic: ','red', attrs = ['bold'])).capitalize()
-			if topic_string in index.keys():
-				print_reference(topic_string,index)
+			topic = input(colored('Topic: ','red', attrs = ['bold'])).capitalize()
+			if topic in index.keys():
+				print_reference(topic,index)
 				valid_response_1 = True
-			elif topic_string == 'Exit':
+			elif topic == 'Exit':
 				break
 			else:
-				cprint('Topic ' + topic_string + ' not in Index.','blue',attrs=['bold'])
-				valid_response_1 = False
+				if len(topic)>=4:
+					topic = (topic[:4]).capitalize()
+				potential_keys = []
+				for key in index.keys():
+					if key[:len(topic)] == topic:
+						potential_keys.append(key)
+				if len(potential_keys)==0: 
+					cprint("No references matched your search.", 'blue', attrs = ['bold'])
+					valid_response_1 == False
+				else:
+					cprint('-'*60,'white',attrs=['bold'])
+					cprint('Search Results','blue',attrs = ['bold','underline'])
+					[cprint(str(i+1) + " - " + potential_keys[i], 'white') for i in range(len(potential_keys))]
+					exit_search_results = False
+					while exit_search_results == False:
+						cprint('-'*60,'white',attrs=['bold'])
+						valid_response_2 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
+						if valid_response_2.capitalize() == "Exit": 
+							cprint('-'*60,'white',attrs=['bold'])
+							valid_response_1 = True
+							break
+						elif valid_response_2.capitalize() == "Cancel": 
+							valid_response_1 = True
+							break
+						else:
+							try:
+								if int(valid_response_2)-1 not in range(len(potential_keys)):
+									cprint('-'*60,'white',attrs=['bold'])
+									cprint('Number option not listed.', 'blue', attrs = ['bold'])
+									exit_search_results = False
+								else:
+									topic = potential_keys[int(valid_response_2)-1]
+									print_reference(topic,index)
+									valid_response_1 = True
+									exit_search_results = True
+							except ValueError:
+								cprint('Invalid Response.', 'blue', attrs =['bold'])
+								exit_search_results = False
 		valid_response_3 = False
 		while valid_response_3 == False:
 			cprint('-'*60,'white',attrs=['bold'])
