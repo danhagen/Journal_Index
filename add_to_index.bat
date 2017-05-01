@@ -1,4 +1,5 @@
 @echo off
+ git pull --quiet origin master
  ipython IndexInput.py
  pdflatex main.tex >nul 2>nul
  git add . 
