@@ -3,87 +3,16 @@ import numpy as np
 from termcolor import cprint,colored
 import platform
 import subprocess
+import ipdb
 
 platform_name = platform.system()
 if platform_name == 'Windows':
 	subprocess.call("git pull --quiet origin master", shell = True)
 else:
 	subprocess.call(args=["git pull --quiet origin master"], shell = True)
+import class_def
+from class_def import index_topic
 
-class index_topic:
-
-	def __init__(self,topic,volume,page):
-		assert type(int(volume))==int, colored("Volume must be an integer.",'green',attrs=['bold'])
-		assert type(int(page))==int, colored("Page must be an integer.",'green',attrs=['bold'])
-		self.topic = topic
-		self.volume = volume
-		self.page = page
-		self.index = {str(volume):[page]}
-
-	def add_pages_to_volume(self, volume, page):
-		if str(volume) not in self.index.keys():
-			self.index[str(volume)] = [page]
-		else:
-			self.index[str(volume)].append(page)
-	def print_topic(self,volume=None):
-		if volume == None:
-			keys = np.sort([int(key) for key in self.index.keys()])
-		else:
-			assert type(volume)==int,"Volume must be an integer."
-			if str(volume) not in self.index.keys():
-				keys = []
-			else:
-				keys = [volume]
-		output = "&\\text{" + self.topic +"} \\hspace*{6em}"
-		for j in range(len(keys)):
-			pages = list(set(self.index[str(keys[j])]))
-			pages = np.sort(pages)
-			discontinuity_indicator = (np.diff(pages)!=1)*np.arange(1,len(pages),1)
-			if len(pages)==1:
-				pages_string = "p. " + str(pages[0])
-			else:
-				pages_string = "pp. " + str(pages[0])
-				if discontinuity_indicator[0] != 0: 
-					pages_string += ", " + str(pages[1])
-					if discontinuity_indicator[-1] != 0:
-						for i in range(2,len(discontinuity_indicator)):
-							if discontinuity_indicator[i] != 0:
-								if discontinuity_indicator[i-1] != 0:
-									pages_string += ", " + str(pages[i+1])
-								else:
-									pages_string += "-" + str(pages[i]) + ", " + str(pages[i+1])
-					else:
-						for i in range(2,len(discontinuity_indicator-1)):
-							if discontinuity_indicator[i] != 0:
-								if discontinuity_indicator[i-1] != 0:
-									pages_string += ", " + str(pages[i+1])
-								else:
-									pages_string += "-" + str(pages[i]) + ", " + str(pages[i+1])
-						pages_string += "-" + str(pages[-1])
-				else:
-					if discontinuity_indicator[-1] != 0:
-						for i in range(1,len(discontinuity_indicator)):
-							if discontinuity_indicator[i] != 0:
-								if discontinuity_indicator[i-1] != 0:
-									pages_string += ", " + str(pages[i+1])
-								else:
-									pages_string += "-" + str(pages[i]) + ", " + str(pages[i+1])
-					else:
-						for i in range(1,len(discontinuity_indicator-1)):
-							if discontinuity_indicator[i] != 0:
-								if discontinuity_indicator[i-1] != 0:
-									pages_string += ", " + str(pages[i+1])
-								else:
-									pages_string += "-" + str(pages[i]) + ", " + str(pages[i+1])
-						pages_string += "-" + str(pages[-1])
-			if j == 0:
-				if volume != None:
-					output +=  "&&" + pages_string + "\\\\" + "\n"
-				else:
-					output +=  "&& vol. " + str(keys[j]) + ": " + pages_string + "\\\\" + "\n"
-			else:
-				output += "& && vol. " + str(keys[j]) + ": " + pages_string + "\\\\" + "\n"
-		return(output) 
 def print_reference(topic_string,index):
 	keys = np.sort([int(key) for key in index[topic_string].index.keys()])
 	if len(topic_string)%2==1: 
@@ -467,6 +396,9 @@ def index_from_letter(latexfile,letters,index,volume,keys):
 def print_index(filename,volume=None):
 	alphabet = []
 	keys = []
+	if __name__=='__main__':
+	    with open('journalindeces.pkl', 'rb') as f:
+	        index = pickle.load(f)
 	if volume == None:
 		keys = index.keys()
 		for key in keys:
@@ -504,10 +436,10 @@ def print_index(filename,volume=None):
 	latexfile.write("\\end{document}")
 	latexfile.close()			
 
-
-index = pickle.load(open('journalindeces.pkl','rb'))
+if __name__=='__main__':
+    with open('journalindeces.pkl', 'rb') as f:
+        index = pickle.load(f)
 current_volume = max([max([int(el) for el in list(index[key].index.keys())]) for key in index.keys()])
-
 additional_entry = True
 while additional_entry == True:
 	exit_prompt = False
@@ -651,6 +583,7 @@ while additional_entry == True:
 			cprint('-'*60,'white',attrs=['bold'])
 			additional_entry=False
 			exit_prompt=True
+
 alphabet = []
 for key in index.keys():
 	alphabet.append(key[0])
