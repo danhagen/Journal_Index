@@ -15,7 +15,7 @@ from class_def import index_topic
 
 def print_reference(topic_string,index):
 	keys = np.sort([int(key) for key in index[topic_string].index.keys()])
-	if len(topic_string)%2==1: 
+	if len(topic_string)%2==1:
 		left_adjustment,right_adjustment = int((len(topic_string)-1)/2),int((len(topic_string)+1)/2)
 	else:
 		left_adjustment,right_adjustment = int(len(topic_string)/2),int(len(topic_string)/2)
@@ -27,7 +27,7 @@ def print_reference(topic_string,index):
 			pages_string = "p. " + str(pages[0])
 		else:
 			pages_string = "pp. " + str(pages[0])
-			if discontinuity_indicator[0] != 0: 
+			if discontinuity_indicator[0] != 0:
 				pages_string += ", " + str(pages[1])
 				if discontinuity_indicator[-1] != 0:
 					for i in range(2,len(discontinuity_indicator)):
@@ -93,7 +93,7 @@ def print_single_reference(index):
 				for key in index.keys():
 					if key[:len(topic)] == topic:
 						potential_keys.append(key)
-				if len(potential_keys)==0: 
+				if len(potential_keys)==0:
 					cprint("No references matched your search.", 'blue', attrs = ['bold'])
 					valid_response_1 == False
 				else:
@@ -104,7 +104,7 @@ def print_single_reference(index):
 					while exit_search_results == False:
 						cprint('-'*60,'white',attrs=['bold'])
 						valid_response_2 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
-						if valid_response_2.capitalize() == "Exit" or valid_response_2.capitalize() == "Cancel": 
+						if valid_response_2.capitalize() == "Exit" or valid_response_2.capitalize() == "Cancel":
 							valid_response_1 = True
 							break
 						else:
@@ -147,7 +147,7 @@ def delete_topic(index):
 			for key in index.keys():
 				if key[:len(topic_to_be_deleted)] == topic_to_be_deleted:
 					potential_keys.append(key)
-			if len(potential_keys)==0: 
+			if len(potential_keys)==0:
 				cprint("No references matched your search.", 'blue', attrs = ['bold'])
 			else:
 				cprint('-'*60,'white',attrs=['bold'])
@@ -157,7 +157,7 @@ def delete_topic(index):
 				while exit_search_results == False:
 					cprint('-'*60,'white',attrs=['bold'])
 					response_3 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
-					if response_3.capitalize() == "Exit": 
+					if response_3.capitalize() == "Exit":
 						return
 					else:
 						try:
@@ -327,8 +327,13 @@ def generate_latex_file(index):
 				valid_response_1 = True
 				generate_another_latex_file = False
 			else:
-				filename = "Volume" + volume_number + "Index.tex"
-				print_index(filename,volume=int(volume_number))
+				if volume_number.capitalize() == 'All':
+					volume_number = None
+					filename = "CompleteIndex.tex"
+				else:
+					volume_number = int(volume_number)
+					filename = "Volume" + str(volume_number) + "Index.tex"
+				print_index(filename,volume=volume_number)
 				valid_response_1 = True
 				generate_another_latex_file = False
 				platform_name = platform.system()
@@ -336,17 +341,16 @@ def generate_latex_file(index):
 					pdflatex_cmd = "pdflatex " + filename + " >nul 2>nul"
 					commit_message = 'git commit --quiet -m "Adding to Volume ' +volume_number+ ' Index!"'
 					subprocess.call(pdflatex_cmd,shell=True)
-					subprocess.call("git add .", shell = True) 
+					subprocess.call("git add .", shell = True)
 					subprocess.call(commit_message, shell = True)
 					subprocess.call("git push --quiet origin master", shell = True)
 				else:
 					pdflatex_cmd = "pdflatex " + filename + " &> /dev/null"
-					commit_message = "git commit --quiet -m 'Adding to  Volume " +volume_number+ " Index!'" 
+					commit_message = "git commit --quiet -m 'Adding to  Volume " +volume_number+ " Index!'"
 					subprocess.call(args=[pdflatex_cmd],shell=True)
-					subprocess.call(args=["git add ."], shell = True) 
+					subprocess.call(args=["git add ."], shell = True)
 					subprocess.call(args=[commit_message], shell = True)
 					subprocess.call(args=["git push --quiet origin master"], shell = True)
-
 def options(index):
 	exit_options = False
 	while exit_options == False:
@@ -434,7 +438,7 @@ def print_index(filename,volume=None):
 	index_from_letter(latexfile,alphabet,index,volume,keys)
 	latexfile.write("\\end{flalign*} \n")
 	latexfile.write("\\end{document}")
-	latexfile.close()			
+	latexfile.close()
 
 if __name__=='__main__':
     with open('journalindeces.pkl', 'rb') as f:
@@ -447,10 +451,10 @@ while additional_entry == True:
 	topic_string = colored('Topic: ', 'red', attrs = ['bold'])
 	topic_response = input(topic_string).capitalize()
 	if topic_response != '\x1b[a': topic = topic_response
-	if topic == "Exit": 
+	if topic == "Exit":
 		cprint('-'*60,'white',attrs=['bold'])
 		break
-	elif topic == "Options": 
+	elif topic == "Options":
 		options(index)
 	elif topic == "Volume?":
 		cprint("Current Volume: " + str(current_volume),'blue')
@@ -461,7 +465,7 @@ while additional_entry == True:
 			for key in index.keys():
 				if key[:len(topic)] == topic:
 					potential_keys.append(key)
-			if len(potential_keys)==0: 
+			if len(potential_keys)==0:
 				cprint("No references matched your search.", 'blue', attrs = ['bold'])
 			else:
 				cprint('-'*60,'white',attrs=['bold'])
@@ -471,12 +475,12 @@ while additional_entry == True:
 				while exit_search_results == False:
 					cprint('-'*60,'white',attrs=['bold'])
 					response_3 = input(colored("Select Reference Number: ", 'red', attrs = ['bold']))
-					if response_3.capitalize() == "Exit": 
+					if response_3.capitalize() == "Exit":
 						cprint('-'*60,'white',attrs=['bold'])
 						additional_entry = False
 						exit_prompt = True
 						break
-					elif response_3.capitalize() == "Cancel": 
+					elif response_3.capitalize() == "Cancel":
 						exit_prompt = False
 						break
 					else:
@@ -519,7 +523,7 @@ while additional_entry == True:
 												new_page = True
 										else:
 											new_page = True
-										
+
 										if topic not in index.keys():
 											index[topic] = index_topic(topic,volume,page)
 										else:
@@ -537,7 +541,7 @@ while additional_entry == True:
 				if page == "Exit":
 					cprint('-'*60,'white',attrs=['bold'])
 					additional_entry = False
-					exit_prompt = True 
+					exit_prompt = True
 					break
 				elif page == "Cancel":
 					exit_prompt = False
@@ -592,6 +596,3 @@ alphabet = sorted(list(set(alphabet)))
 pickle.dump(index,open('journalindeces.pkl','wb'),pickle.HIGHEST_PROTOCOL)
 
 print_index("main.tex")
-
-
-
