@@ -601,4 +601,4 @@ alphabet = sorted(list(set(alphabet)))
 
 pickle.dump(index,open('journalindeces.pkl','wb'),pickle.HIGHEST_PROTOCOL)
 
-print_index("main.tex")
+print_index("CompleteIndex.tex")
