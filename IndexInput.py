@@ -465,7 +465,7 @@ while additional_entry == True:
 	elif topic == "Volume?":
 		cprint("Current Volume: " + str(current_volume),'blue')
 	elif topic == "Change volume":
-		current_volume = input(colored("Change to Volume: " + str(current_volume),'red',attrs = ['bold']))
+		current_volume = input(colored("Change from Volume " + str(current_volume) + " to Volume: " ,'red',attrs = ['bold']))
 	else:
 		if topic[0] == ">":
 			topic = (topic[1:]).capitalize()
