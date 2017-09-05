@@ -14,7 +14,7 @@ class index_topic:
 		self.volume = volume
 		if len(page)!=2:
 			self.page = page[0]
-			self.index = {str(volume):[page]}
+			self.index = {str(volume):[page[0]]}
 		else:
 			self.page = list(range(page[0],page[1]))
 			self.index = {str(volume):list(range(page[0],page[1]+1))}
