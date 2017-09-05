@@ -598,6 +598,7 @@ while additional_entry == True:
 										elif '-' in page:
 											page = [int(page[:page.index('-')]),\
 														int(page[page.index('-')+1:])]
+											volume = current_volume
 										else:
 											page = int(page)
 											volume = current_volume
