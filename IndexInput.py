@@ -503,8 +503,8 @@ def print_documentation():
 			string = '\n' + string + '\n'
 			return(string)
 	documentation = \
-	margins("This program is designed to index all of the notes taken in numbers notebooks for easier intra- and inter-volume searching.") + \
-	'-'*60 + \
+	margins(" - This program is designed to index all of the notes taken in numbers notebooks for easier intra- and inter-volume searching.") + \
+	'~'*60 + \
 	"\n" + \
 	"Shortcuts:\n" + \
 	margins(" - Options Menu: Typing 'options' in the add topic/vol/page environment or the additional pages environment will bring up the options menu.") + \
