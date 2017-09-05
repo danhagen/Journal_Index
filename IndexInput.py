@@ -690,10 +690,10 @@ while additional_entry == True:
 					else:
 						new_page = True
 
-					if topic not in index.keys():
-						index[topic] = index_topic(topic,volume,page)
-					else:
-						index[topic].add_pages_to_volume(volume,page)
+			if topic not in index.keys():
+				index[topic] = index_topic(topic,volume,page)
+			else:
+				index[topic].add_pages_to_volume(volume,page)
 
 	while exit_prompt == False:
 		cprint('-'*60,'white',attrs=['bold'])
