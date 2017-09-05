@@ -504,9 +504,12 @@ def print_documentation():
 			return(string)
 	documentation = \
 	margins(" - This program is designed to index all of the notes taken in numbers notebooks for easier intra- and inter-volume searching.") + \
+	"\n" + \
 	'~'*60 + \
 	"\n" + \
 	"Shortcuts:\n" + \
+	'~'*60 + \
+	"\n" + \
 	margins(" - Options Menu: Typing 'options' in the add topic/vol/page environment or the additional pages environment will bring up the options menu.") + \
 	margins(" - Searching: Using '>' before any topic can be used to search for an existing topic. This search is automatically done while printing or deleting topics in the options menu.") + \
 	margins(" - Quick Volume Ammend: Using the format (vol)page can quickly ammend any journal entry in any volume (even in new volumes if desired).") + \
