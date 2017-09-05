@@ -12,14 +12,24 @@ class index_topic:
 		assert type(int(page))==int, colored("Page must be an integer.",'green',attrs=['bold'])
 		self.topic = topic
 		self.volume = volume
-		self.page = page
-		self.index = {str(volume):[page]}
+		if len(page)!=2:
+			self.page = page
+			self.index = {str(volume):[page]}
+		else:
+			self.page = list(range(page[0],page[1]))
+			self.index = {str(volume):list(range(page[0],page[1]))}
 
 	def add_pages_to_volume(self, volume, page):
 		if str(volume) not in self.index.keys():
-			self.index[str(volume)] = [page]
+			if len(page)!=2:
+				self.index[str(volume)] = [page]
+			else:
+				self.index[str(volume)] = list(range(page[0],page[1]))
 		else:
-			self.index[str(volume)].append(page)
+			if len(page)!=2:
+				self.index[str(volume)].append(page)
+			else:
+				[self.index[str(volume)].append(p) for p in list(range(page[0],page[1]))]
 	def print_topic(self,volume=None):
 		if volume == None:
 			keys = np.sort([int(key) for key in self.index.keys()])
@@ -38,7 +48,7 @@ class index_topic:
 				pages_string = "p. " + str(pages[0])
 			else:
 				pages_string = "pp. " + str(pages[0])
-				if discontinuity_indicator[0] != 0: 
+				if discontinuity_indicator[0] != 0:
 					pages_string += ", " + str(pages[1])
 					if discontinuity_indicator[-1] != 0:
 						for i in range(2,len(discontinuity_indicator)):
@@ -78,4 +88,4 @@ class index_topic:
 					output +=  "&& vol. " + str(keys[j]) + ": " + pages_string + "\\\\" + "\n"
 			else:
 				output += "& && vol. " + str(keys[j]) + ": " + pages_string + "\\\\" + "\n"
-		return(output) 
+		return(output)
