@@ -594,13 +594,13 @@ while additional_entry == True:
 									else:
 										if page[0] == '(':
 											volume = int(page[1:page.index(')')])
-											page = int(page[page.index(')')+1:])
+											page = [int(page[page.index(')')+1:])]
 										elif '-' in page:
 											page = [int(page[:page.index('-')]),\
 														int(page[page.index('-')+1:])]
 											volume = current_volume
 										else:
-											page = int(page)
+											page = [int(page)]
 											volume = current_volume
 										if topic in index.keys():
 											if str(volume) not in index[topic].index.keys():
@@ -654,13 +654,13 @@ while additional_entry == True:
 				else:
 					if page[0] == '(':
 						volume = int(page[1:page.index(')')])
-						page = int(page[page.index(')')+1:])
+						page = [int(page[page.index(')')+1:])]
 					elif '-' in page:
 						page = [int(page[:page.index('-')]),\
 									int(page[page.index('-')+1:])]
 						volume = current_volume
 					else:
-						page = int(page)
+						page = [int(page)]
 						volume = current_volume
 					if topic in index.keys():
 						if str(volume) not in index[topic].index.keys():

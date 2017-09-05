@@ -13,7 +13,7 @@ class index_topic:
 		self.topic = topic
 		self.volume = volume
 		if len(page)!=2:
-			self.page = page
+			self.page = page[0]
 			self.index = {str(volume):[page]}
 		else:
 			self.page = list(range(page[0],page[1]))
