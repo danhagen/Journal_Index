@@ -608,7 +608,7 @@ while additional_entry == True:
 											elif len(page)==2:
 												if np.array([p in index[topic].index[str(volume)]\
 														for p in range(page[0],page[1])]).any():
-													overlapping_pages=list(filter(lambda x: x in index[topic].index[str(volume)], range(page[0],page[1])))
+													overlapping_pages=list(filter(lambda x: x in index[topic].index[str(volume)], range(page[0],page[1]+1)))
 													if len(overlapping_pages)==1:
 														overlapping_pages_string = str(overlapping_pages[0])
 													else:
@@ -669,7 +669,7 @@ while additional_entry == True:
 						elif len(page)==2:
 							if np.array([p in index[topic].index[str(volume)]\
 									for p in range(page[0],page[1])]).any():
-								overlapping_pages=list(filter(lambda x: x in index[topic].index[str(volume)], range(page[0],page[1])))
+								overlapping_pages=list(filter(lambda x: x in index[topic].index[str(volume)], range(page[0],page[1]+1)))
 								if len(overlapping_pages)==1:
 									overlapping_pages_string = str(overlapping_pages[0])
 								else:

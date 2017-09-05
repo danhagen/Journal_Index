@@ -17,19 +17,19 @@ class index_topic:
 			self.index = {str(volume):[page]}
 		else:
 			self.page = list(range(page[0],page[1]))
-			self.index = {str(volume):list(range(page[0],page[1]))}
+			self.index = {str(volume):list(range(page[0],page[1]+1))}
 
 	def add_pages_to_volume(self, volume, page):
 		if str(volume) not in self.index.keys():
 			if len(page)!=2:
 				self.index[str(volume)] = [page]
 			else:
-				self.index[str(volume)] = list(range(page[0],page[1]))
+				self.index[str(volume)] = list(range(page[0],page[1]+1))
 		else:
 			if len(page)!=2:
 				self.index[str(volume)].append(page)
 			else:
-				[self.index[str(volume)].append(p) for p in list(range(page[0],page[1]))]
+				[self.index[str(volume)].append(p) for p in list(range(page[0],page[1]+1))]
 	def print_topic(self,volume=None):
 		if volume == None:
 			keys = np.sort([int(key) for key in self.index.keys()])
