@@ -605,21 +605,22 @@ while additional_entry == True:
 										if topic in index.keys():
 											if str(volume) not in index[topic].index.keys():
 												new_page = True
-											elif len(page)==2 and \
-													np.array([p in index[topic].index[str(volume)]\
+											elif len(page)==2:
+												if np.array([p in index[topic].index[str(volume)]\
 														for p in range(page[0],page[1])]).any():
-												overlapping_pages=list(filter(lambda x: x in index[topic].index[str(volume)], range(page[0],page[1])))
-												if len(overlapping_pages)==1:
-													overlapping_pages_string = str(overlapping_pages[0])
+													overlapping_pages=list(filter(lambda x: x in index[topic].index[str(volume)], range(page[0],page[1])))
+													if len(overlapping_pages)==1:
+														overlapping_pages_string = str(overlapping_pages[0])
+													else:
+														overlapping_pages_string = str(overlapping_pages[0])
+														for i in range(1,len(overlapping_pages)):
+															overlapping_pages_string += ", "*(len(overlapping_pages)!=2) + " & "*(len(overlapping_pages)==2) + "& "*(i == len(overlapping_pages)-1) +  str(overlapping_pages[i])
+
+													cprint("Page(s) " + overlapping_pages_string + " already referenced in vol. " + str(volume) \
+															+ " for topic '" + topic + "'.", 'blue', attrs = ['bold'])
+													new_page = False
 												else:
-													overlapping_pages_string = str(overlapping_pages[0])
-													for i in range(1,len(overlapping_pages)):
-														overlapping_pages_string += ", "*(len(overlapping_pages)!=2) + " & "*(len(overlapping_pages)==2) + "& "*(i == len(overlapping_pages)-1) +  str(overlapping_pages[i])
-
-												cprint("Page(s) " + overlapping_pages_string + " already referenced in vol. " + str(volume) \
-														+ " for topic '" + topic + "'.", 'blue', attrs = ['bold'])
-												new_page = False
-
+													new_page = True
 											elif page in index[topic].index[str(volume)]:
 												cprint("Page " + str(page) + " in vol. " + str(volume) \
 														+ " is already indexed for topic '" + topic + "'.", 'blue', attrs = ['bold'])
@@ -655,12 +656,32 @@ while additional_entry == True:
 					if page[0] == '(':
 						volume = int(page[1:page.index(')')])
 						page = int(page[page.index(')')+1:])
+					elif '-' in page:
+						page = [int(page[:page.index('-')]),\
+									int(page[page.index('-')+1:])]
+						volume = current_volume
 					else:
 						page = int(page)
 						volume = current_volume
 					if topic in index.keys():
 						if str(volume) not in index[topic].index.keys():
 							new_page = True
+						elif len(page)==2:
+							if np.array([p in index[topic].index[str(volume)]\
+									for p in range(page[0],page[1])]).any():
+								overlapping_pages=list(filter(lambda x: x in index[topic].index[str(volume)], range(page[0],page[1])))
+								if len(overlapping_pages)==1:
+									overlapping_pages_string = str(overlapping_pages[0])
+								else:
+									overlapping_pages_string = str(overlapping_pages[0])
+									for i in range(1,len(overlapping_pages)):
+										overlapping_pages_string += ", "*(len(overlapping_pages)!=2) + " & "*(len(overlapping_pages)==2) + "& "*(i == len(overlapping_pages)-1) +  str(overlapping_pages[i])
+
+								cprint("Page(s) " + overlapping_pages_string + " already referenced in vol. " + str(volume) \
+										+ " for topic '" + topic + "'.", 'blue', attrs = ['bold'])
+								new_page = False
+							else:
+								new_page = True
 						elif page in index[topic].index[str(volume)]:
 							cprint("Page " + str(page) + " in vol. " + str(volume) \
 									+ " is already indexed for topic '" + topic + "'.", 'blue', attrs = ['bold'])
