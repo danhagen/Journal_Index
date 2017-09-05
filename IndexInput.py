@@ -396,13 +396,11 @@ def options(index):
 		else:
 			cprint('Invalid Response.','blue',attrs=['bold'])
 			exit_options = False
-
 def index_from_letter(latexfile,letters,index,volume,keys):
 	for letter in letters:
 		latexfile.write("\\textit{"+letter+"\\hspace{0.5em}} \\\\")
 		for key in sorted(keys):
 			if key[0] == letter: latexfile.write(index[key].print_topic(volume =volume))
-
 def print_index(filename,volume=None):
 	alphabet = []
 	keys = []
@@ -451,6 +449,73 @@ def clean_up(index):
 		volumes = index[topic].index.keys()
 		for volume in volumes:
 			index[topic].index[volume] = list(set(index[topic].index[volume]))
+def print_documentation():
+	cprint('-'*60,'white',attrs=['bold'])
+	cprint('Program Documentation','blue',attrs = ['bold','underline'])
+	def margins(string):
+		if string == None:
+			string = "Lorem ipsum dolor sit amet, ipsum nonumy diceret pri ad. Quod doming labitur mei ea. Meis vidit te nam. Id fuisset senserit eum, esse contentiones voluptatibus per in. Pri libris mucius suscipiantur in, id detracto constituam pri. Est cibo lucilius id, quo no debitis atomorum conclusionemque. Cu dicam dicunt eos, agam dicam te vix. Vero fabellas ea pri. Posse dolor sed an. Zril facete dictas te mea, quot vivendo cum at. Usu ut phaedrum aliquando, postea delenit ea pri. Ex iisque tibique eam. Meis utinam primis eos ex, porro vituperata complectitur has ad. Mea ad quot tantas tamquam. Ne eam amet vidisse percipit, sint aliquip eu vis. Ex vis utinam animal urbanitas."
+		if len(string) < 60:
+			return(string)
+		else:
+			import math
+			nlines = math.ceil(len(string)/60)
+			breakpoint = 60
+			i = 1
+			while i < nlines-1:
+				if ' ' not in string[breakpoint:] and \
+						list(reversed(string[:breakpoint])).index(' ')>=3 and \
+							len(string[breakpoint:])>=3:
+					string = string[:breakpoint] + '-\n   ' + string[breakpoint:]
+					nlines = (i+1) + math.ceil(len(string[(breakpoint+2):])/60)
+					breakpoint += 60 + 2 + 3
+					i += 1
+				elif ' ' not in string[breakpoint:]:
+					nearest_space = list(reversed(string[:breakpoint])).index(' ')
+					breakpoint = breakpoint-nearest_space
+					string = string[:breakpoint] + '\n   ' + \
+					 			string[breakpoint:]
+					nlines = (i+1) + math.ceil(len(string[(breakpoint+1):])/60)
+					breakpoint += 60 + 1 + 3
+					i += 1
+				elif string[breakpoint:].index(' ')==1:
+					nearest_space = list(reversed(string[:breakpoint])).index(' ')
+					breakpoint = breakpoint-nearest_space
+					string = string[:breakpoint] + '\n   ' + \
+					 			string[breakpoint:]
+					nlines = (i+1) + math.ceil(len(string[(breakpoint+1):])/60)
+					breakpoint += 60 + 1 + 3
+					i += 1
+				elif list(reversed(string[:breakpoint])).index(' ')>=3 and \
+						string[breakpoint:].index(' ')>=3:
+					string = string[:breakpoint] + '-\n   ' + string[breakpoint:]
+					nlines = (i+1) + math.ceil(len(string[(breakpoint+2):])/60)
+					breakpoint += 60 + 2 + 3
+					i += 1
+				else:
+					nearest_space = list(reversed(string[:breakpoint])).index(' ')
+					breakpoint = breakpoint-nearest_space
+					string = string[:breakpoint] + '\n   ' + \
+					 			string[breakpoint:]
+					nlines = (i+1) + math.ceil(len(string[(breakpoint+1):])/60)
+					breakpoint += 60 + 1 + 3
+					i += 1
+			string = '\n' + string + '\n'
+			return(string)
+	documentation = \
+	margins("This program is designed to index all of the notes taken in numbers notebooks for easier intra- and inter-volume searching.") + \
+	'-'*60 + \
+	"\n" + \
+	"Shortcuts:\n" + \
+	margins(" - Options Menu: Typing 'options' in the add topic/vol/page environment or the additional pages environment will bring up the options menu.") + \
+	margins(" - Searching: Using '>' before any topic can be used to search for an existing topic. This search is automatically done while printing or deleting topics in the options menu.") + \
+	margins(" - Quick Volume Ammend: Using the format (vol)page can quickly ammend any journal entry in any volume (even in new volumes if desired).") + \
+	margins(" - Current Volume Inquiry: In the add topic/vol/page enviroment, the command 'current volume?' will bring up the current volume number.") + \
+	margins(" - Changing Current Volume: Likewise, typing in 'change volume' will result in a prompt to change the current volume. This can be used to back ammend volumes or to add new volumes.") + \
+	margins(" - Clean up: Typing in 'clean up' will initiate a subprogram that will make sure that there are no duplicate entries in the dictionary.") + \
+	margins(" - Cancelling: Typing in 'cancel' at any point during this program will cancel the current operation and return the user to the additional entries query.") + \
+	margins(" - Exiting: Additionally, typing in 'exit' will exit the program all together and initiate the saving and committing of the new files.")
+	cprint(documentation,'white')
 
 if __name__=='__main__':
 	with open('journalindeces.pkl', 'rb') as f:
@@ -474,6 +539,8 @@ while additional_entry == True:
 		current_volume = input(colored("Change from Volume " + str(current_volume) + " to Volume: " ,'red',attrs = ['bold']))
 	elif topic == "Clean up":
 		clean_up(index)
+	elif topic == 'Help':
+		print_documentation()
 	else:
 		if topic[0] == ">":
 			topic = (topic[1:]).capitalize()
