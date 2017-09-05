@@ -9,7 +9,7 @@ class index_topic:
 
 	def __init__(self,topic,volume,page):
 		assert type(int(volume))==int, colored("Volume must be an integer.",'green',attrs=['bold'])
-		assert type(int(page))==int, colored("Page must be an integer.",'green',attrs=['bold'])
+		assert np.array([type(int(el))==int for el in page]).all(), colored("Page must be an integer.",'green',attrs=['bold'])
 		self.topic = topic
 		self.volume = volume
 		if len(page)!=2:
