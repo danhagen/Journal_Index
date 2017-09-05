@@ -445,10 +445,16 @@ def print_index(filename,volume=None):
 	latexfile.write("\\end{flalign*} \n")
 	latexfile.write("\\end{document}")
 	latexfile.close()
+def clean_up(index):
+	all_topics = index.keys()
+	for topic in all_topics:
+		volumes = index[topic].index.keys()
+		for volume in volumes:
+			index[topic].index[volume] = list(set(index[topic].index[volume]))
 
 if __name__=='__main__':
-    with open('journalindeces.pkl', 'rb') as f:
-        index = pickle.load(f)
+	with open('journalindeces.pkl', 'rb') as f:
+	    index = pickle.load(f)
 current_volume = max([max([int(el) for el in list(index[key].index.keys())]) for key in index.keys()])
 additional_entry = True
 while additional_entry == True:
@@ -466,6 +472,8 @@ while additional_entry == True:
 		cprint("Current Volume: " + str(current_volume),'blue')
 	elif topic == "Change volume":
 		current_volume = input(colored("Change from Volume " + str(current_volume) + " to Volume: " ,'red',attrs = ['bold']))
+	elif topic == "Clean up":
+		clean_up(index)
 	else:
 		if topic[0] == ">":
 			topic = (topic[1:]).capitalize()
