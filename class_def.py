@@ -22,12 +22,12 @@ class index_topic:
 	def add_pages_to_volume(self, volume, page):
 		if str(volume) not in self.index.keys():
 			if len(page)!=2:
-				self.index[str(volume)] = [page]
+				self.index[str(volume)] = [page[0]]
 			else:
 				self.index[str(volume)] = list(range(page[0],page[1]+1))
 		else:
 			if len(page)!=2:
-				self.index[str(volume)].append(page)
+				self.index[str(volume)].append(page[0])
 			else:
 				[self.index[str(volume)].append(p) for p in list(range(page[0],page[1]+1))]
 	def print_topic(self,volume=None):
