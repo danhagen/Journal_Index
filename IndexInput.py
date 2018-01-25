@@ -554,6 +554,11 @@ while additional_entry == True:
 	else:
 		if topic[0] == ">":
 			topic = topic[1:]
+			topic = " ".join(string.capwords(w) for w in re.split('-| ',topic))
+			for letter in string.ascii_lowercase:
+				topic = topic.replace("("+letter,"("+letter.capitalize())
+			for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. "]:
+				topic = topic.replace(article,article.lower())
 			potential_keys = []
 			for key in index.keys():
 				if key[:len(topic)] == topic:
