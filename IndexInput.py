@@ -82,7 +82,12 @@ def print_single_reference(index):
 		cprint('Print Reference','blue',attrs = ['bold','underline'])
 		valid_response_1 = False
 		while valid_response_1 == False:
-			topic = input(colored('Topic: ','red', attrs = ['bold'])).capitalize()
+			topic = input(colored('Topic: ','red', attrs = ['bold']))
+			topic = " ".join(string.capwords(w) for w in re.split('-| ',topic))
+			for letter in string.ascii_lowercase:
+				topic = topic.replace("("+letter,"("+letter.capitalize())
+			for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. "]:
+				topic = topic.replace(article,article.lower())
 			if topic in index.keys():
 				print_reference(topic,index)
 				valid_response_1 = True
@@ -90,7 +95,7 @@ def print_single_reference(index):
 				break
 			else:
 				if len(topic)>=4:
-					topic = (topic[:4]).capitalize()
+					topic = topic[:4]
 				potential_keys = []
 				for key in index.keys():
 					if key[:len(topic)] == topic:
@@ -142,6 +147,12 @@ def delete_topic(index):
 		cprint('-'*60,'white',attrs=['bold'])
 		cprint('Delete Reference','blue',attrs = ['bold','underline'])
 		topic_to_be_deleted = input(colored('Topic: ','red',attrs = ['bold'])).capitalize()
+		topic_to_be_deleted = " ".join(string.capwords(w) for w in re.split('-| ',topic_to_be_deleted))
+		for letter in string.ascii_lowercase:
+			topic_to_be_deleted = topic_to_be_deleted.replace("("+letter,"("+letter.capitalize())
+		for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. "]:
+			topic_to_be_deleted = topic_to_be_deleted.replace(article,article.lower())
+
 		if topic_to_be_deleted == "Exit":
 			return
 		else:
@@ -206,7 +217,13 @@ def delete_volume(index):
 		cprint('Remove Volume Reference','blue',attrs = ['bold','underline'])
 		valid_response_1 = False
 		while valid_response_1 == False:
-			topic_string = input(colored('Topic: ','red',attrs = ['bold'])).capitalize()
+			topic_string = input(colored('Topic: ','red',attrs = ['bold']))
+			topic_string = " ".join(string.capwords(w) for w in re.split('-| ',topic_string))
+			for letter in string.ascii_lowercase:
+				topic_string = topic_string.replace("("+letter,"("+letter.capitalize())
+			for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. "]:
+				topic_string = topic_string.replace(article,article.lower())
+
 			if topic_string in index.keys():
 				if len(index[topic_string].index.keys())==1:
 					cprint("Topic '" + topic_string + "' has only one volume reference. \nSwitch to Delete Topic.",\
@@ -260,7 +277,13 @@ def delete_page(index):
 		cprint('Remove Page Reference','blue',attrs = ['bold','underline'])
 		valid_response_1 = False
 		while valid_response_1 == False:
-			topic_string = input(colored('Topic: ','red',attrs = ['bold'])).capitalize()
+			topic_string = input(colored('Topic: ','red',attrs = ['bold']))
+			topic_string = " ".join(string.capwords(w) for w in re.split('-| ',topic_string))
+			for letter in string.ascii_lowercase:
+				topic_string = topic_string.replace("("+letter,"("+letter.capitalize())
+			for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. "]:
+				topic_string = topic_string.replace(article,article.lower())
+
 			if topic_string in index.keys():
 				valid_response_2 = False
 				while valid_response_2 == False:
