@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  3 MAR 2017 10:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  25 JAN 2018 13:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -230,7 +230,7 @@ LaTeX Info: Redefining \selectfont on input line 8.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
-Overfull \hbox (40.02092pt too wide) in paragraph at lines 113--113
+Overfull \hbox (49.11592pt too wide) in paragraph at lines 113--113
 [] 
  []
 
@@ -241,7 +241,7 @@ Overfull \hbox (40.02092pt too wide) in paragraph at lines 113--113
 Here is how much of TeX's memory you used:
  2300 strings out of 493014
  30599 string characters out of 6133351
- 162569 words of memory out of 5000000
+ 162548 words of memory out of 5000000
  5843 multiletter control sequences out of 15000+600000
  9994 words of font info for 24 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -255,7 +255,7 @@ msfonts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm
 -super/sfbx1440.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-s
 uper/sfrm1000.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-sup
 er/sfti1000.pfb>
-Output written on Volume1Index.pdf (3 pages, 87059 bytes).
+Output written on Volume1Index.pdf (3 pages, 86854 bytes).
 PDF statistics:
  43 PDF objects out of 1000 (max. 8388607)
  30 compressed objects within 1 object stream

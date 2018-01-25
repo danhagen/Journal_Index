@@ -86,7 +86,7 @@ def print_single_reference(index):
 			topic = " ".join(string.capwords(w) for w in re.split('-| ',topic))
 			for letter in string.ascii_lowercase:
 				topic = topic.replace("("+letter,"("+letter.capitalize())
-			for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. "]:
+			for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. ", " In "]:
 				topic = topic.replace(article,article.lower())
 			if topic in index.keys():
 				print_reference(topic,index)
@@ -150,7 +150,7 @@ def delete_topic(index):
 		topic_to_be_deleted = " ".join(string.capwords(w) for w in re.split('-| ',topic_to_be_deleted))
 		for letter in string.ascii_lowercase:
 			topic_to_be_deleted = topic_to_be_deleted.replace("("+letter,"("+letter.capitalize())
-		for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. "]:
+		for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. ", " In "]:
 			topic_to_be_deleted = topic_to_be_deleted.replace(article,article.lower())
 
 		if topic_to_be_deleted == "Exit":
@@ -221,7 +221,7 @@ def delete_volume(index):
 			topic_string = " ".join(string.capwords(w) for w in re.split('-| ',topic_string))
 			for letter in string.ascii_lowercase:
 				topic_string = topic_string.replace("("+letter,"("+letter.capitalize())
-			for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. "]:
+			for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. ", " In "]:
 				topic_string = topic_string.replace(article,article.lower())
 
 			if topic_string in index.keys():
@@ -281,7 +281,7 @@ def delete_page(index):
 			topic_string = " ".join(string.capwords(w) for w in re.split('-| ',topic_string))
 			for letter in string.ascii_lowercase:
 				topic_string = topic_string.replace("("+letter,"("+letter.capitalize())
-			for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. "]:
+			for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. ", " In "]:
 				topic_string = topic_string.replace(article,article.lower())
 
 			if topic_string in index.keys():
@@ -558,7 +558,7 @@ while additional_entry == True:
 	topic_response = " ".join(string.capwords(w) for w in re.split('-| ',topic_response))
 	for letter in string.ascii_lowercase:
 		topic_response = topic_response.replace("("+letter,"("+letter.capitalize())
-	for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. "]:
+	for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. ", " In "]:
 		topic_response = topic_response.replace(article,article.lower())
 	if topic_response != '\x1b[a': topic = topic_response
 	if topic == "Exit":
@@ -580,7 +580,7 @@ while additional_entry == True:
 			topic = " ".join(string.capwords(w) for w in re.split('-| ',topic))
 			for letter in string.ascii_lowercase:
 				topic = topic.replace("("+letter,"("+letter.capitalize())
-			for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. "]:
+			for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. ", " In "]:
 				topic = topic.replace(article,article.lower())
 			potential_keys = []
 			for key in index.keys():
