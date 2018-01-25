@@ -230,7 +230,7 @@ LaTeX Info: Redefining \selectfont on input line 8.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
-Overfull \hbox (77.6415pt too wide) in paragraph at lines 380--380
+Overfull \hbox (77.6415pt too wide) in paragraph at lines 381--381
 [] 
  []
 
@@ -241,7 +241,7 @@ Overfull \hbox (77.6415pt too wide) in paragraph at lines 380--380
 Here is how much of TeX's memory you used:
  2300 strings out of 493014
  30608 string characters out of 6133351
- 342168 words of memory out of 5000000
+ 342437 words of memory out of 5000000
  5843 multiletter control sequences out of 15000+600000
  9994 words of font info for 24 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -256,7 +256,7 @@ ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2016/texmf-dis
 t/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2016/texmf-dist/
 fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2016/texmf-dist/fo
 nts/type1/public/cm-super/sfti1000.pfb>
-Output written on CompleteIndex.pdf (9 pages, 106010 bytes).
+Output written on CompleteIndex.pdf (9 pages, 106333 bytes).
 PDF statistics:
  67 PDF objects out of 1000 (max. 8388607)
  47 compressed objects within 1 object stream
