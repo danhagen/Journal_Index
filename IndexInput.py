@@ -4,6 +4,8 @@ from termcolor import cprint,colored
 import platform
 import subprocess
 import ipdb
+import re
+import string
 
 platform_name = platform.system()
 if platform_name == 'Windows':
@@ -405,8 +407,8 @@ def print_index(filename,volume=None):
 	alphabet = []
 	keys = []
 	if __name__=='__main__':
-	    with open('journalindeces.pkl', 'rb') as f:
-	        index = pickle.load(f)
+		with open('journalindeces.pkl', 'rb') as f:
+		    index = pickle.load(f)
 	if volume == None:
 		keys = index.keys()
 		for key in keys:
@@ -529,7 +531,12 @@ while additional_entry == True:
 	exit_prompt = False
 	cprint('-'*60,'white',attrs=['bold'])
 	topic_string = colored('Topic: ', 'red', attrs = ['bold'])
-	topic_response = input(topic_string).capitalize()
+	topic_response = input(topic_string)
+	topic_response = " ".join(string.capwords(w) for w in re.split('-| ',topic_response))
+	for letter in string.ascii_lowercase:
+		topic_response = topic_response.replace("("+letter,"("+letter.capitalize())
+	for article in [" A "," The ", " An ", " At ", " From ", " Of ", " W.r.t. "]:
+		topic_response = topic_response.replace(article,article.lower())
 	if topic_response != '\x1b[a': topic = topic_response
 	if topic == "Exit":
 		cprint('-'*60,'white',attrs=['bold'])
@@ -538,15 +545,15 @@ while additional_entry == True:
 		options(index)
 	elif topic == "Volume?":
 		cprint("Current Volume: " + str(current_volume),'blue')
-	elif topic == "Change volume":
+	elif topic == "Change Volume":
 		current_volume = input(colored("Change from Volume " + str(current_volume) + " to Volume: " ,'red',attrs = ['bold']))
-	elif topic == "Clean up":
+	elif topic == "Clean Up":
 		clean_up(index)
 	elif topic == 'Help':
 		print_documentation()
 	else:
 		if topic[0] == ">":
-			topic = (topic[1:]).capitalize()
+			topic = topic[1:]
 			potential_keys = []
 			for key in index.keys():
 				if key[:len(topic)] == topic:
