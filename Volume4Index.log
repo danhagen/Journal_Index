@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  22 FEB 2018 15:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  27 FEB 2018 12:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -236,7 +236,7 @@ LaTeX Info: Redefining \selectfont on input line 8.
 Here is how much of TeX's memory you used:
  2300 strings out of 493014
  30599 string characters out of 6133351
- 150880 words of memory out of 5000000
+ 152415 words of memory out of 5000000
  5843 multiletter control sequences out of 15000+600000
  9994 words of font info for 24 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -250,7 +250,7 @@ msfonts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm
 -super/sfbx1440.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-s
 uper/sfrm1000.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-sup
 er/sfti1000.pfb>
-Output written on Volume4Index.pdf (3 pages, 75753 bytes).
+Output written on Volume4Index.pdf (3 pages, 75819 bytes).
 PDF statistics:
  43 PDF objects out of 1000 (max. 8388607)
  30 compressed objects within 1 object stream
