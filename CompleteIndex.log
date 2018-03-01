@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  1 MAR 2018 14:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  1 MAR 2018 14:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -235,9 +235,15 @@ LaTeX Info: Redefining \selectfont on input line 8.
 l.435 \end{flalign*}
                     
 ? 
+! Interruption.
+<to be read again> 
+                   _
+l.435 \end{flalign*}
+                    
+? 
 ! Emergency stop.
-<inserted text> 
-                $
+<to be read again> 
+                   _
 l.435 \end{flalign*}
                     
 End of file on the terminal!
