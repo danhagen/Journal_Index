@@ -367,7 +367,7 @@ def generate_latex_file(index):
 					if volume_number == None:
 						commit_message = 'git commit --quiet -m "Building Complete Index!"'
 					else:
-						commit_message = 'git commit --quiet -m "Adding to Volume ' +volume_number+ ' Index!"'
+						commit_message = 'git commit --quiet -m "Adding to Volume ' + str(volume_number) + ' Index!"'
 					subprocess.call(pdflatex_cmd,shell=True)
 					subprocess.call("git add .", shell = True)
 					subprocess.call(commit_message, shell = True)
