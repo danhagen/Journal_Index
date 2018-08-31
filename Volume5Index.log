@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6800 64-bit) (preloaded format=pdflatex 2018.8.30)  30 AUG 2018 15:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6800 64-bit) (preloaded format=pdflatex 2018.8.30)  31 AUG 2018 15:03
 entering extended mode
 **./Volume5Index.tex
 (Volume5Index.tex
@@ -184,7 +184,7 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@dimlist=\toks25
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
-No file Volume5Index.aux.
+(Volume5Index.aux)
 \openout1 = `Volume5Index.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
@@ -199,7 +199,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
-("C:\Program Files\MiKTeX 2.9\tex\latex\ucs\ucsencs.def"
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\ucs\ucsencs.def"
 File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 )
 ABD: EverySelectfont initializing macros
@@ -244,9 +244,9 @@ LaTeX Info: Redefining \selectfont on input line 8.
 {C:/Users/hagen/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
 [3] (Volume5Index.aux) ) 
 Here is how much of TeX's memory you used:
- 2420 strings out of 492973
- 32379 string characters out of 3135932
- 160972 words of memory out of 3000000
+ 2422 strings out of 492973
+ 32457 string characters out of 3135932
+ 176481 words of memory out of 3000000
  6284 multiletter control sequences out of 15000+200000
  9994 words of font info for 24 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -258,9 +258,9 @@ eX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk><C:/Program Files/MiKTeX
 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/font
 s/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
 ublic/amsfonts/cm/cmsy10.pfb>
-Output written on Volume5Index.pdf (3 pages, 55744 bytes).
+Output written on Volume5Index.pdf (3 pages, 57103 bytes).
 PDF statistics:
- 110 PDF objects out of 1000 (max. 8388607)
+ 113 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
